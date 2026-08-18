@@ -1,0 +1,5 @@
+﻿.env
+node_modules/
+bot.backup.js
+ngrok.exe
+ngrok.zip
