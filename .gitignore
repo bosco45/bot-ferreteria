@@ -3,3 +3,4 @@ node_modules/
 bot.backup.js
 ngrok.exe
 ngrok.zip
+bot.js.backup_*

@@ -16,6 +16,7 @@ const {
     VERIFY_TOKEN = 'trinity3d_bot_2024',
     OLLAMA_URL = 'http://localhost:11434',
     OLLAMA_MODEL = 'qwen3:4b',
+    ASESOR_PHONE = process.env.ASESOR_PHONE,
     PORT = 3000
 } = process.env;
 
@@ -55,7 +56,7 @@ function obtenerRespuestaLocalBackup(texto) {
     }
     
     if (mensaje.includes('contacto') || mensaje.includes('telefono') || mensaje.includes('whatsapp') || mensaje.includes('ubicacion') || mensaje.includes('direccion') || mensaje.includes('donde estan')) {
-        return '📞 *Contacto Trinity 3D*\n\n• *WhatsApp:* +57 311 3969580\n• *Horario:* Lunes a Viernes 9:00 - 18:00\n• *Ubicación:* Colombia\n\n¡Estamos para servirte! 😊';
+        return '📞 *Contacto Trinity 3D*\n\n• *WhatsApp:* \n• *Horario:* Lunes a Viernes 9:00 - 18:00\n• *Ubicación:* Colombia\n\n¡Estamos para servirte! 😊';
     }
     
     if (mensaje.includes('ping')) {
@@ -80,47 +81,255 @@ function obtenerRespuestaLocalBackup(texto) {
 
 const conversaciones = new Map();
 
+// Estado comercial de cada prospecto
+const prospectos = new Map();
+
+function obtenerProspecto(telefono) {
+    const id = telefono || 'prueba-local';
+
+    if (!prospectos.has(id)) {
+        prospectos.set(id, {
+            etapa: 'descubrimiento',
+            sector: null,
+            necesidad: null,
+            objetivo: null,
+            materiales: null,
+            alcance: null,
+            plazo: null,
+            presupuesto: null,
+            listoParaComercial: false,
+            necesitaAsesor: false,
+            actualizado: new Date().toISOString()
+        });
+    }
+
+    return prospectos.get(id);
+}
+
 const SYSTEM_PROMPT = `
-Eres Trinity, asistente virtual de Trinity 3D.
+Eres Trinity, el asistente comercial virtual de Trinity 3D.
 
-Tu trabajo es conversar de forma natural con clientes por WhatsApp.
+IDENTIDAD DE LA EMPRESA
 
-Reglas:
-- Responde siempre en español.
-- Se claro, profesional y breve.
-- No digas que eres un modelo de inteligencia artificial.
-- No inventes precios, direcciones, tiempos de entrega ni datos que no conozcas.
-- Si falta informacion para una cotizacion, pregunta lo necesario.
-- Recuerda el contexto reciente de la conversacion.
-- Haz una sola pregunta a la vez cuando necesites informacion.
-- No muestres razonamientos internos.
-- No uses respuestas excesivamente largas.
-- Puedes orientar sobre impresion 3D, diseño y modelado 3D, escaneo 3D, prototipado y materiales.
+Trinity 3D es una empresa colombiana de innovación tecnológica especializada en:
+- Modelado tridimensional de alta calidad.
+- Visualización y renderizado 3D.
+- Inteligencia artificial aplicada a proyectos digitales.
+- Realidad virtual, aumentada y extendida.
+- Experiencias inmersivas e interactivas.
+- Simulación digital.
+- Entornos virtuales.
+- Desarrollo de activos y experiencias 3D.
+
+Trinity 3D transforma ideas, planos, conceptos y proyectos en representaciones digitales claras, realistas e interactivas antes de que existan físicamente.
+
+La propuesta de valor consiste en ayudar a empresas y profesionales a:
+- Comprender mejor proyectos complejos.
+- Presentar ideas a clientes e inversionistas.
+- Reducir errores de planificación.
+- Mejorar procesos de toma de decisiones.
+- Crear experiencias digitales innovadoras.
+- Comunicar productos y proyectos de manera visual e impactante.
+
+SECTORES PRINCIPALES
+
+Trinity 3D puede desarrollar soluciones para:
+arquitectura, sector inmobiliario, industria, medicina, educación, videojuegos, producción audiovisual y economía creativa.
+
+EJEMPLOS DE SOLUCIONES
+
+Arquitectura:
+renders, visualización arquitectónica, recorridos virtuales y presentación de proyectos.
+
+Inmobiliario:
+renders fotorrealistas, recorridos virtuales, experiencias interactivas y herramientas para preventa.
+
+Industria:
+visualización de maquinaria, procesos industriales, simulación, capacitación y entornos virtuales.
+
+Medicina:
+modelos anatómicos y visualizaciones tridimensionales educativas o profesionales.
+
+Educación:
+experiencias interactivas, modelos educativos y entornos virtuales.
+
+Videojuegos:
+modelos 3D, escenarios, objetos, personajes y experiencias interactivas.
+
+INFORMACIÓN COMERCIAL
+
+Fundadora: Annya Fraysheht Diaz Orozco.
+Contacto Trinity 3D: disponible a través de este canal.
+
+Trinity 3D desarrolla proyectos nacionales e internacionales.
+
+No inventes precios, tiempos de entrega, clientes, proyectos realizados, capacidades técnicas ni información que no tengas.
+
+Trinity 3D NO debe presentarse principalmente como una empresa de impresión 3D física.
+Su enfoque principal es visualización digital, modelado 3D, inteligencia artificial, simulación y experiencias inmersivas.
+
+OBJETIVO DE LA CONVERSACIÓN
+
+Tu objetivo no es solamente responder preguntas.
+
+Debes comprender al prospecto, identificar su necesidad, perfilar el proyecto y conducir naturalmente la conversación hacia una oportunidad comercial real para Trinity 3D.
+
+EMBUDO COMERCIAL
+
+Trabaja internamente con estas etapas, pero nunca le digas al cliente el nombre de la etapa:
+
+DESCUBRIMIENTO:
+Comprende qué quiere lograr el cliente y cuál es su problema.
+
+PERFILADO:
+Identifica el sector del cliente, el tipo de proyecto y para qué necesita la solución.
+
+NECESIDAD:
+Descubre qué resultado espera obtener.
+
+Puede ser por ejemplo:
+renders, modelos 3D, recorrido virtual, experiencia interactiva, simulación, contenido para ventas, capacitación, presentación de proyecto o desarrollo digital.
+
+ALCANCE:
+Pregunta qué información o materiales tiene disponibles:
+planos, imágenes, referencias, modelos existentes, dimensiones, documentos o concepto inicial.
+
+CALIFICACIÓN:
+Cuando ya entiendas la necesidad, identifica de forma natural:
+alcance aproximado,
+estado actual del proyecto,
+fecha o plazo esperado,
+y si corresponde, presupuesto aproximado.
+
+No preguntes presupuesto al comenzar la conversación.
+
+RECOMENDACIÓN:
+Explica brevemente qué solución de Trinity 3D podría ayudarle y por qué.
+
+CIERRE:
+Cuando tengas suficiente información, resume el proyecto en pocas líneas y pregunta:
+
+"¿Quieres que deje esta información lista para que el equipo de Trinity 3D evalúe tu proyecto y prepare una propuesta?"
+
+FORMA DE CONVERSAR
+
+Habla siempre en español salvo que el cliente utilice otro idioma.
+
+Sé profesional, cercano y consultivo.
+
+No parezcas un formulario.
+
+Haz solamente UNA pregunta importante por mensaje.
+
+Usa las respuestas anteriores del cliente y no vuelvas a preguntar información que ya proporcionó.
+
+No bombardees al cliente con menús.
+
+No respondas con textos demasiado largos.
+
+Cada respuesta debe tener normalmente entre 1 y 4 frases.
+
+Haz preguntas concretas que hagan avanzar la oportunidad comercial.
+
+Si el usuario hace una pregunta directa, respóndela primero y después continúa el perfilado de manera natural.
+
+Nunca presiones al cliente.
+
+Nunca inventes información para cerrar una venta.
+
+ESCALAMIENTO A ASESOR HUMANO
+
+Si no conoces con seguridad la respuesta, no inventes.
+
+Si la solicitud requiere una evaluación técnica que no puedes determinar, marca:
+"necesitaAsesor": true
+
+Si el cliente pide hablar con una persona, asesor, humano o representante, marca:
+"necesitaAsesor": true
+
+Si la solicitud está fuera de la información disponible de Trinity 3D, marca:
+"necesitaAsesor": true
+
+Cuando necesite asesor, responde de forma breve:
+"Esta solicitud requiere revisión del equipo de Trinity 3D. Voy a dejarla marcada para atención de un asesor."
+
+No sigas haciendo preguntas comerciales después de decidir que necesita asesor.
+
+Si una solicitud está fuera de las capacidades conocidas de Trinity 3D, explica que debe ser evaluada por el equipo.
+
+Tu meta es transformar una conversación casual en una necesidad bien definida y lista para evaluación comercial.
+
+FORMATO TECNICO OBLIGATORIO
+
+Tu salida final debe ser UNICAMENTE un JSON valido.
+
+El cliente NO vera el JSON. El sistema mostrara solamente el campo "respuesta".
+
+Usa exactamente esta estructura:
+
+{
+  "respuesta": "Mensaje corto y natural para el cliente",
+  "estado": {
+    "etapa": "descubrimiento",
+    "sector": null,
+    "necesidad": null,
+    "objetivo": null,
+    "materiales": null,
+    "alcance": null,
+    "plazo": null,
+    "presupuesto": null,
+    "listoParaComercial": false,
+    "necesitaAsesor": false
+  }
+}
+
+Etapas permitidas:
+descubrimiento
+perfilado
+necesidad
+alcance
+calificacion
+recomendacion
+cierre
+
+Conserva los datos del estado anterior si el cliente no los modifica.
+
+Nunca inventes datos para completar campos.
+
+Usa null cuando un dato todavia no se conozca.
+
+"respuesta" debe contener solamente lo que leeria normalmente el cliente por WhatsApp.
+
+La respuesta debe ser natural, normalmente de 1 a 3 frases y maximo una pregunta.
+
+Cuando ya tengas suficiente informacion para que el equipo comercial evalúe el proyecto, usa:
+"listoParaComercial": true
 `;
 
 async function obtenerRespuestaIA(telefono, texto) {
-
     const usuario = telefono || 'prueba-local';
+    const prospecto = obtenerProspecto(usuario);
 
     if (!conversaciones.has(usuario)) {
         conversaciones.set(usuario, []);
     }
 
     const historial = conversaciones.get(usuario);
-
+    
+    // Agregar mensaje del usuario al historial
     historial.push({
         role: 'user',
         content: texto
     });
 
-    // Conservar solamente contexto reciente
-    if (historial.length > 10) {
-        historial.splice(0, historial.length - 10);
+    // Mantener contexto reciente sin hacer demasiado pesado el prompt
+    if (historial.length > 8) {
+        historial.splice(0, historial.length - 8);
     }
 
     try {
-
         console.log(`Consultando Ollama ${OLLAMA_MODEL}...`);
+        const inicio = Date.now();
 
         const response = await axios.post(
             `${OLLAMA_URL}/api/chat`,
@@ -129,51 +338,123 @@ async function obtenerRespuestaIA(telefono, texto) {
                 messages: [
                     {
                         role: 'system',
-                        content: SYSTEM_PROMPT
+                        content: SYSTEM_PROMPT + '\n\nESTADO COMERCIAL ACTUAL DEL PROSPECTO:\n' + JSON.stringify(prospecto)
                     },
                     ...historial
                 ],
                 stream: false,
-                think: false,
+                think: true,
+                keep_alive: '30m',
                 options: {
-                    temperature: 0.6
+                    temperature: 0.4,
+                    num_predict: 1600,
+                    num_ctx: 4096
                 }
             },
             {
-                timeout: 60000
+                // Damos margen al modelo local
+                timeout: 300000
             }
         );
 
-        const respuesta =
-            response.data?.message?.content?.trim();
+        console.log(`Ollama terminó en ${((Date.now() - inicio) / 1000).toFixed(1)} segundos`);
 
-        if (!respuesta) {
-            throw new Error('Ollama no devolvio respuesta');
+        let contenido = response.data?.message?.content || '';
+
+        // Limpiar posibles bloques de razonamiento
+        contenido = contenido
+            .replace(/<think>[\s\S]*?<\/think>/gi, '')
+            .trim();
+
+        if (contenido.includes('</think>')) {
+            contenido = contenido.split('</think>').pop().trim();
         }
 
+        // Limpiar bloques Markdown si Ollama devuelve ```json
+        contenido = contenido
+            .replace(/^```json\s*/i, '')
+            .replace(/^```\s*/i, '')
+            .replace(/```$/i, '')
+            .trim();
+
+        if (!contenido) {
+            throw new Error('Ollama devolvio una respuesta vacia');
+        }
+
+        let respuesta = contenido;
+
+        try {
+            const salida = JSON.parse(contenido);
+
+            if (salida.respuesta) {
+                respuesta = String(salida.respuesta).trim();
+            }
+
+            if (salida.estado && typeof salida.estado === 'object') {
+
+                const camposPermitidos = [
+                    'etapa',
+                    'sector',
+                    'necesidad',
+                    'objetivo',
+                    'materiales',
+                    'alcance',
+                    'plazo',
+                    'presupuesto',
+                    'listoParaComercial',
+                    'necesitaAsesor'
+                ];
+
+                for (const campo of camposPermitidos) {
+                    if (Object.prototype.hasOwnProperty.call(salida.estado, campo)) {
+                        prospecto[campo] = salida.estado[campo];
+                    }
+                }
+
+                prospecto.actualizado = new Date().toISOString();
+
+                prospectos.set(usuario, prospecto);
+
+                console.log(
+                    'Estado comercial:',
+                    JSON.stringify(prospecto, null, 2)
+                );
+            }
+
+        } catch (errorJson) {
+            console.log(
+                'Ollama no devolvio JSON valido. Se utilizara la respuesta como texto.'
+            );
+        }
+
+        // Agregar respuesta del asistente al historial
         historial.push({
             role: 'assistant',
             content: respuesta
         });
 
-        if (historial.length > 10) {
-            historial.splice(0, historial.length - 10);
+        // Mantener el historial limitado
+        if (historial.length > 8) {
+            historial.splice(0, historial.length - 8);
         }
 
-        console.log(`Ollama respondio: ${respuesta}`);
+        console.log('Respuesta Trinity:', respuesta);
 
         return respuesta;
 
     } catch (error) {
+        console.error('================================');
+        console.error('ERROR REAL DE OLLAMA');
+        console.error('Código:', error.code || 'sin código');
+        console.error('Mensaje:', error.message);
 
-        console.error(
-            'Error con Ollama:',
-            error.response?.data || error.message
-        );
+        if (error.response?.data) {
+            console.error('Respuesta Ollama:', JSON.stringify(error.response.data));
+        }
 
-        console.log('Usando respuesta local de respaldo');
+        console.error('================================');
 
-        return obtenerRespuestaLocalBackup(texto);
+        return 'En este momento estoy teniendo una demora para procesar tu solicitud. Puedes intentarlo nuevamente en unos segundos.';
     }
 }
 
@@ -267,7 +548,7 @@ app.post('/webhook', async (req, res) => {
 
 app.post('/test', async (req, res) => {
     const texto = req.body?.text || '';
-    const respuesta = await obtenerRespuestaIA(from, texto);
+    const respuesta = await obtenerRespuestaIA('prueba-local', texto);
     
     res.json({
         ok: true,
@@ -340,6 +621,17 @@ app.listen(PORT, () => {
     console.log('========================================');
     console.log('');
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
