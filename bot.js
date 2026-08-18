@@ -14,6 +14,8 @@ const {
     WHATSAPP_PHONE_ID = '1222698170925154',
     WHATSAPP_API_VERSION = 'v25.0',
     VERIFY_TOKEN = 'trinity3d_bot_2024',
+    OLLAMA_URL = 'http://localhost:11434',
+    OLLAMA_MODEL = 'qwen3:4b',
     PORT = 3000
 } = process.env;
 
@@ -21,7 +23,7 @@ const {
 // RESPUESTAS LOCALES DE TRINITY 3D
 // ==========================================
 
-function obtenerRespuestaLocal(texto) {
+function obtenerRespuestaLocalBackup(texto) {
     const mensaje = texto.toLowerCase().trim();
     
     if (mensaje.includes('hola') || mensaje.includes('buenas') || mensaje.includes('hey') || mensaje.includes('buenos dias') || mensaje.includes('buenas tardes')) {
@@ -69,6 +71,110 @@ function obtenerRespuestaLocal(texto) {
     }
     
     return 'No estoy seguro de entender. 🤔\n\nPuedo ayudarte con:\n• *Servicios* - Escribe "servicios"\n• *Cotizaciones* - Escribe "cotización"\n• *Materiales* - Escribe "materiales"\n• *Contacto* - Escribe "contacto"\n\n¿Qué te gustaría saber?';
+}
+
+
+// ==========================================
+// IA LOCAL CON OLLAMA
+// ==========================================
+
+const conversaciones = new Map();
+
+const SYSTEM_PROMPT = `
+Eres Trinity, asistente virtual de Trinity 3D.
+
+Tu trabajo es conversar de forma natural con clientes por WhatsApp.
+
+Reglas:
+- Responde siempre en español.
+- Se claro, profesional y breve.
+- No digas que eres un modelo de inteligencia artificial.
+- No inventes precios, direcciones, tiempos de entrega ni datos que no conozcas.
+- Si falta informacion para una cotizacion, pregunta lo necesario.
+- Recuerda el contexto reciente de la conversacion.
+- Haz una sola pregunta a la vez cuando necesites informacion.
+- No muestres razonamientos internos.
+- No uses respuestas excesivamente largas.
+- Puedes orientar sobre impresion 3D, diseño y modelado 3D, escaneo 3D, prototipado y materiales.
+`;
+
+async function obtenerRespuestaIA(telefono, texto) {
+
+    const usuario = telefono || 'prueba-local';
+
+    if (!conversaciones.has(usuario)) {
+        conversaciones.set(usuario, []);
+    }
+
+    const historial = conversaciones.get(usuario);
+
+    historial.push({
+        role: 'user',
+        content: texto
+    });
+
+    // Conservar solamente contexto reciente
+    if (historial.length > 10) {
+        historial.splice(0, historial.length - 10);
+    }
+
+    try {
+
+        console.log(`Consultando Ollama ${OLLAMA_MODEL}...`);
+
+        const response = await axios.post(
+            `${OLLAMA_URL}/api/chat`,
+            {
+                model: OLLAMA_MODEL,
+                messages: [
+                    {
+                        role: 'system',
+                        content: SYSTEM_PROMPT
+                    },
+                    ...historial
+                ],
+                stream: false,
+                think: false,
+                options: {
+                    temperature: 0.6
+                }
+            },
+            {
+                timeout: 60000
+            }
+        );
+
+        const respuesta =
+            response.data?.message?.content?.trim();
+
+        if (!respuesta) {
+            throw new Error('Ollama no devolvio respuesta');
+        }
+
+        historial.push({
+            role: 'assistant',
+            content: respuesta
+        });
+
+        if (historial.length > 10) {
+            historial.splice(0, historial.length - 10);
+        }
+
+        console.log(`Ollama respondio: ${respuesta}`);
+
+        return respuesta;
+
+    } catch (error) {
+
+        console.error(
+            'Error con Ollama:',
+            error.response?.data || error.message
+        );
+
+        console.log('Usando respuesta local de respaldo');
+
+        return obtenerRespuestaLocalBackup(texto);
+    }
 }
 
 // ==========================================
@@ -142,7 +248,7 @@ app.post('/webhook', async (req, res) => {
                     const texto = message.text.body;
                     console.log(`💬 Mensaje de ${from}: ${texto}`);
                     
-                    const respuesta = obtenerRespuestaLocal(texto);
+                    const respuesta = await obtenerRespuestaIA(from, texto);
                     await enviarMensajeWhatsApp(from, respuesta);
                 }
             }
@@ -159,9 +265,9 @@ app.post('/webhook', async (req, res) => {
 // PRUEBA LOCAL
 // ==========================================
 
-app.post('/test', (req, res) => {
+app.post('/test', async (req, res) => {
     const texto = req.body?.text || '';
-    const respuesta = obtenerRespuestaLocal(texto);
+    const respuesta = await obtenerRespuestaIA(from, texto);
     
     res.json({
         ok: true,
@@ -234,3 +340,6 @@ app.listen(PORT, () => {
     console.log('========================================');
     console.log('');
 });
+
+
+
