@@ -723,87 +723,164 @@ Sin discursos.
 Sin listas de servicios.
 Sin inventar.
 
-RAZONAMIENTO CONVERSACIONAL AMPLIO V3
+RAZONAMIENTO CONVERSACIONAL AMPLIO V4
 
-Antes de responder, analiza el mensaje completo y separa preguntas de afirmaciones.
+No actues como formulario.
 
-Una palabra mencionada dentro de una pregunta NO es un dato confirmado.
+Antes de responder analiza el mensaje completo y decide que accion aporta mas valor.
 
-En cada turno determina internamente:
+ACCIONES POSIBLES
 
-1. Intención del cliente.
-2. Preguntas directas que deben responderse primero.
-3. Hechos nuevos confirmados.
-4. Correcciones a información anterior.
-5. Datos ya conocidos para no repetir preguntas.
-6. Qué información aporta mayor valor para avanzar.
-7. Si ya existe contexto suficiente para recomendar revisión comercial.
+Puedes:
 
-EXTRACCIÓN MÚLTIPLE
+- responder una pregunta
+- aportar informacion util
+- aclarar una ambiguedad
+- profundizar en un objetivo importante
+- recomendar una posible solucion de Trinity
+- pedir un unico dato relevante
+- cerrar sin hacer otra pregunta
+- escalar al equipo
+- pausar el bot cuando ya existe handoff
 
-Un mensaje puede aportar sector, objetivo, audiencia, materiales y plazo al mismo tiempo.
+NO conviertas automaticamente cada campo vacio en una pregunta.
 
-Guarda todos los datos confirmados y no vuelvas a preguntarlos.
+PREGUNTA SOLO SI LA RESPUESTA PUEDE CAMBIAR:
 
-PREGUNTAS VS. HECHOS
+- la comprension del problema
+- la solucion posible
+- el alcance
+- la viabilidad
+- la siguiente decision comercial
+
+RESPONDER PRIMERO
+
+Si el cliente pregunta algo, responde primero.
+
+No fuerces inmediatamente otra pregunta.
+
+Una respuesta puede terminar sin interrogante.
+
+HECHOS VS PREGUNTAS
+
+Una palabra dentro de una pregunta no es un dato confirmado.
 
 Ejemplo:
 
-"¿Necesito planos para que ustedes hagan un recorrido virtual?"
+"¿Necesito tener planos?"
 
-No significa que el cliente tenga planos.
+NO significa:
 
-Responde la pregunta; no registres "planos" como material disponible.
+materiales = planos
+
+EXTRACCION MULTIPLE
+
+Un mensaje puede contener sector, objetivo, audiencia, materiales, alcance y plazo simultaneamente.
+
+Extrae todos los hechos confirmados.
+
+No preguntes nuevamente lo que ya sabes.
 
 CORRECCIONES
 
-Si el cliente corrige un dato, actualízalo sin discutir ni pedirlo otra vez.
+Si el cliente corrige informacion anterior, actualizala.
 
-NO FORMULARIO
+No discutas.
+No repitas el dato.
+No obligues al cliente a responder otra vez.
 
-Los campos comerciales no son una lista obligatoria.
+INFERENCIAS
 
-No preguntes por llenar campos vacíos.
+Distingue entre informacion confirmada e inferida.
 
-Pregunta solo lo que cambie la comprensión, el alcance o la siguiente decisión.
+No presentes una inferencia incierta como un hecho.
 
-IMPACTO OPCIONAL
+Si una inferencia importante tiene baja confianza, aclara solo cuando sea necesario.
 
-No preguntes impacto por rutina.
+NO INTERROGATORIO
 
-Úsalo solo cuando aporte valor real.
+Evita cadenas como:
+
+pregunta
+pregunta
+pregunta
+pregunta
+
+Si ya hiciste varias preguntas, aporta valor, recomienda una direccion o espera informacion del cliente antes de continuar.
+
+IMPACTO
+
+El impacto no es obligatorio.
+
+Preguntalo solamente cuando ayude realmente a definir la necesidad.
 
 PRESUPUESTO
 
-No lo preguntes al inicio ni lo conviertas en requisito obligatorio del fallback.
+No es obligatorio en el chatbot.
 
-Si el cliente lo menciona, guárdalo.
+Nunca lo preguntes al inicio.
 
-El equipo puede completarlo después.
+Si el cliente lo menciona, guardalo.
 
-RESPONDER ANTES DE PREGUNTAR
+RECOMENDACIONES
 
-Si el cliente pregunta por precio, tiempo, servicios o capacidades, responde primero.
+No inventes servicios ni capacidades.
 
-Después, como máximo, una pregunta útil.
+Puedes sugerir solamente capacidades conocidas de Trinity:
 
-NO REPETIR
+- modelado 3D
+- visualizacion y renderizado
+- inteligencia artificial
+- VR
+- AR
+- XR
+- experiencias inmersivas
+- simulacion digital
+- entornos virtuales
+- activos digitales 3D
 
-Revisa mensaje actual, historial y estado del prospecto.
+Una recomendacion debe basarse en el contexto conocido.
 
-Si el dato ya está confirmado, no lo preguntes otra vez.
+Si todavia hay demasiada incertidumbre, pregunta antes de recomendar.
 
-ESTILO
+FUERA DE FOCO
 
-Respuesta corta y natural para WhatsApp.
+La impresion 3D fisica no es el foco principal de Trinity.
 
-Ideal 40-140 caracteres.
+No inicies un embudo comercial de impresion fisica.
 
-Máximo aproximado 160.
+Si el cliente necesita primero modelado 3D digital, esa parte si puede evaluarse.
 
-Una idea y máximo una pregunta.
+ASESOR
 
-Evita introducciones vacías y resúmenes del mensaje del cliente.
+Si el cliente solicita una persona, asesor, humano o agente:
+
+- escala inmediatamente
+- no sigas calificando
+- activa modo de atencion humana
+
+ESTILO WHATSAPP
+
+Respuesta natural y directa.
+
+Ideal:
+1 frase.
+
+Maximo:
+2 frases.
+
+Maximo una pregunta.
+
+Evita:
+
+"Entiendo"
+"Comprendo"
+"Perfecto"
+"Excelente"
+"Claro"
+"Por lo que me cuentas"
+
+No parafrasees innecesariamente lo que el cliente acaba de decir.
 
 FORMATO TECNICO OBLIGATORIO
 
@@ -1184,26 +1261,47 @@ Cuando BazaarLink agota la cuota gratuita:
 */
 
 /*
-============================================================
-TRINITY 3D - MOTOR CONVERSACIONAL V2 CORREGIDO
-============================================================
+====================================================================
+TRINITY 3D - MOTOR CONVERSACIONAL V4
+====================================================================
 
-Principios:
+Motor basado en:
 
-- No funciona como formulario.
-- Distingue preguntas de afirmaciones antes de extraer hechos.
-- Extrae varios datos de un mismo mensaje.
-- No vuelve a preguntar datos ya conocidos.
-- Prioriza responder al cliente antes de seguir calificando.
-- Un 429 no obliga a escalar al asesor.
+mensaje
+  ↓
+analisis
+  ↓
+hechos + preguntas + correcciones
+  ↓
+memoria
+  ↓
+acciones candidatas
+  ↓
+puntuacion
+  ↓
+mejor siguiente accion
+  ↓
+respuesta
+
+No usa una lista rigida de campos.
 */
 
 
-function datoVacioV2(valor) {
+/*
+====================================================================
+UTILIDADES
+====================================================================
+*/
 
-    if (valor === null || valor === undefined) {
+function datoVacioV4(valor) {
+
+    if (
+        valor === null ||
+        valor === undefined
+    ) {
         return true;
     }
+
 
     if (
         typeof valor === 'string' &&
@@ -1212,6 +1310,7 @@ function datoVacioV2(valor) {
         return true;
     }
 
+
     if (
         Array.isArray(valor) &&
         valor.length === 0
@@ -1219,13 +1318,14 @@ function datoVacioV2(valor) {
         return true;
     }
 
+
     return false;
 }
 
 
-function resumirTextoV2(
+function resumirTextoV4(
     texto,
-    maximo = 160
+    maximo = 180
 ) {
 
     const limpio =
@@ -1233,9 +1333,14 @@ function resumirTextoV2(
             .replace(/\s+/g, ' ')
             .trim();
 
-    if (limpio.length <= maximo) {
+
+    if (
+        limpio.length <=
+        maximo
+    ) {
         return limpio;
     }
+
 
     const corte =
         limpio.slice(
@@ -1243,8 +1348,10 @@ function resumirTextoV2(
             maximo - 1
         );
 
+
     const espacio =
         corte.lastIndexOf(' ');
+
 
     return (
         espacio > 40
@@ -1254,90 +1361,153 @@ function resumirTextoV2(
 }
 
 
+function textoReglasV4(texto) {
+
+    return limpiarTextoParaReglas(
+        String(texto || '')
+    );
+}
+
+
 /*
-============================================================
-CONTEXTO CONVERSACIONAL
-============================================================
+====================================================================
+CONTEXTO
+====================================================================
 */
 
-function asegurarContextoConversacionalV2(
+function asegurarContextoConversacionalV4(
     prospecto
 ) {
 
     if (
-        !prospecto.contextoV2 ||
-        typeof prospecto.contextoV2 !== 'object'
+        !prospecto.contextoV4 ||
+        typeof prospecto.contextoV4 !== 'object'
     ) {
 
-        prospecto.contextoV2 = {
+        prospecto.contextoV4 = {
 
-            preguntaPendiente: null,
+            version:
+                4,
 
-            ultimaPregunta: null,
+            turnos:
+                0,
 
-            preguntasRealizadas: [],
+            preguntaPendiente:
+                null,
 
-            confirmados: {},
+            ultimaPregunta:
+                null,
 
-            turnos: 0,
+            preguntasRealizadas:
+                [],
 
-            modoFallback: false,
+            accionesRecientes:
+                [],
 
-            proximoIntentoIA: 0,
+            temasExplorados:
+                [],
 
-            ultimoMensajeCliente: null,
+            hechosConfirmados:
+                {},
 
-            ultimaRespuestaTrinity: null,
+            inferencias:
+                {},
 
-            reintentos: {}
+            contradicciones:
+                [],
+
+            reintentos:
+                {},
+
+            ultimaAccion:
+                null,
+
+            ultimoMensajeCliente:
+                null,
+
+            ultimaRespuestaTrinity:
+                null,
+
+            modoFallback:
+                false,
+
+            proximoIntentoIA:
+                0,
+
+            modoAsesor:
+                false,
+
+            recomendacionEmitida:
+                false,
+
+            revisionOfrecida:
+                false,
+
+            solucionSugerida:
+                null
         };
     }
 
+
     const contexto =
-        prospecto.contextoV2;
+        prospecto.contextoV4;
 
 
-    if (
-        !Array.isArray(
-            contexto.preguntasRealizadas
-        )
+    const listas = [
+
+        'preguntasRealizadas',
+
+        'accionesRecientes',
+
+        'temasExplorados',
+
+        'contradicciones'
+    ];
+
+
+    for (
+        const nombre
+        of listas
     ) {
 
-        contexto.preguntasRealizadas = [];
-    }
-
-
-    if (
-        !contexto.confirmados ||
-        typeof contexto.confirmados !== 'object'
-    ) {
-
-        contexto.confirmados = {};
-    }
-
-
-    if (
-        !contexto.reintentos ||
-        typeof contexto.reintentos !== 'object'
-    ) {
-
-        contexto.reintentos = {};
-    }
-
-
-    if (
-        !Number.isFinite(
-            Number(
-                contexto.proximoIntentoIA
+        if (
+            !Array.isArray(
+                contexto[nombre]
             )
-        )
-    ) {
+        ) {
 
-        contexto.proximoIntentoIA = 0;
+            contexto[nombre] = [];
+        }
     }
 
 
-    const adicionales = [
+    const objetos = [
+
+        'hechosConfirmados',
+
+        'inferencias',
+
+        'reintentos'
+    ];
+
+
+    for (
+        const nombre
+        of objetos
+    ) {
+
+        if (
+            !contexto[nombre] ||
+            typeof contexto[nombre] !==
+                'object'
+        ) {
+
+            contexto[nombre] = {};
+        }
+    }
+
+
+    const camposAdicionales = [
 
         'tipoProyecto',
 
@@ -1353,14 +1523,42 @@ function asegurarContextoConversacionalV2(
     ];
 
 
-    for (const campo of adicionales) {
+    for (
+        const campo
+        of camposAdicionales
+    ) {
 
         if (
-            prospecto[campo] === undefined
+            prospecto[campo] ===
+            undefined
         ) {
 
-            prospecto[campo] = null;
+            prospecto[campo] =
+                null;
         }
+    }
+
+
+    if (
+        prospecto.modoAsesor ===
+        undefined
+    ) {
+
+        prospecto.modoAsesor =
+            false;
+    }
+
+
+    if (
+        prospecto.etapa ===
+        'handoff'
+    ) {
+
+        prospecto.modoAsesor =
+            true;
+
+        contexto.modoAsesor =
+            true;
     }
 
 
@@ -1369,102 +1567,220 @@ function asegurarContextoConversacionalV2(
 
 
 /*
-============================================================
-GUARDAR INFORMACION CONFIRMADA
-============================================================
+====================================================================
+HISTORIAL DE ACCIONES
+====================================================================
 */
 
-function guardarDatoConfirmadoV2(
+function registrarAccionV4(
     prospecto,
-    campo,
-    valor,
-    opciones = {}
+    accion
 ) {
 
-    if (
-        valor === null ||
-        valor === undefined
-    ) {
-
-        return;
-    }
-
-
-    const nuevoValor =
-        resumirTextoV2(
-            valor,
-            200
-        );
-
-
-    if (!nuevoValor) {
-        return;
-    }
-
-
     const contexto =
-        asegurarContextoConversacionalV2(
+        asegurarContextoConversacionalV4(
             prospecto
         );
 
 
+    contexto.ultimaAccion =
+        accion.tipo;
+
+
+    contexto.accionesRecientes.push(
+        accion.tipo
+    );
+
+
     if (
-        opciones.sobrescribir === true
+        contexto.accionesRecientes.length >
+        8
     ) {
 
-        prospecto[campo] =
-            nuevoValor;
+        contexto.accionesRecientes =
+            contexto.accionesRecientes.slice(
+                -8
+            );
+    }
+}
 
-    } else if (
-        campo === 'materiales' &&
-        !datoVacioV2(
-            prospecto.materiales
-        )
+
+function contarPreguntasRecientesV4(
+    prospecto
+) {
+
+    const contexto =
+        asegurarContextoConversacionalV4(
+            prospecto
+        );
+
+
+    let cantidad =
+        0;
+
+
+    for (
+        let i =
+            contexto.accionesRecientes.length - 1;
+
+        i >= 0;
+
+        i--
     ) {
 
-        const anterior =
-            String(
-                prospecto.materiales
-            ).trim();
-
-
-        const partes =
-            anterior
-                .split(';')
-                .map(
-                    valorActual =>
-                        valorActual.trim()
-                )
-                .filter(Boolean);
+        const accion =
+            contexto.accionesRecientes[i];
 
 
         if (
-            !partes.some(
-                valorActual =>
-                    valorActual
-                        .toLowerCase() ===
-                    nuevoValor
-                        .toLowerCase()
+            accion.startsWith(
+                'PREGUNTAR_'
+            ) ||
+            accion.startsWith(
+                'ACLARAR_'
             )
         ) {
 
-            prospecto.materiales =
-                `${anterior}; ${nuevoValor}`;
+            cantidad++;
+
+        } else {
+
+            break;
         }
-
-    } else if (
-        datoVacioV2(
-            prospecto[campo]
-        )
-    ) {
-
-        prospecto[campo] =
-            nuevoValor;
     }
 
 
-    contexto.confirmados[campo] =
+    return cantidad;
+}
+
+
+/*
+====================================================================
+RESET DE PRUEBA
+====================================================================
+*/
+
+function esComandoResetV4(
+    texto
+) {
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    return /^(reiniciar conversacion|reinicia conversacion|reset conversacion|reset trinity|nueva conversacion)$/.test(
+        limpio
+    );
+}
+
+
+function reiniciarConversacionV4(
+    telefono
+) {
+
+    if (
+        prospectos instanceof Map
+    ) {
+
+        prospectos.delete(
+            telefono
+        );
+    }
+
+
+    if (
+        conversaciones instanceof Map
+    ) {
+
+        conversaciones.delete(
+            telefono
+        );
+
+    } else if (
+        conversaciones &&
+        typeof conversaciones ===
+            'object'
+    ) {
+
+        delete conversaciones[
+            telefono
+        ];
+    }
+}
+
+
+/*
+====================================================================
+ASESOR
+====================================================================
+*/
+
+function clientePideAsesorV4(
+    texto
+) {
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    if (
+        /^(asesor|asesora|humano|persona|agente|vendedor|comercial)$/.test(
+            limpio
+        )
+    ) {
+
+        return true;
+    }
+
+
+    return (
+        /\b(quiero|necesito|quisiera|puedo|me gustaria)\s+(?:hablar|comunicarme|contactar|pasar)\s+(?:con\s+)?(?:un\s+|una\s+|el\s+|la\s+)?(?:asesor|asesora|persona|humano|agente|equipo)\b/.test(
+            limpio
+        ) ||
+
+        /\b(pasame|paseme|comunicame|comuniqueme|contactame)\s+(?:con\s+)?(?:un\s+|una\s+)?(?:asesor|asesora|persona|humano|agente)\b/.test(
+            limpio
+        ) ||
+
+        /\b(hablar con alguien|persona real|atencion humana|asesor humano)\b/.test(
+            limpio
+        )
+    );
+}
+
+
+function activarModoAsesorV4(
+    prospecto
+) {
+
+    const contexto =
+        asegurarContextoConversacionalV4(
+            prospecto
+        );
+
+
+    prospecto.modoAsesor =
         true;
+
+
+    prospecto.necesitaAsesor =
+        true;
+
+
+    prospecto.etapa =
+        'handoff';
+
+
+    contexto.modoAsesor =
+        true;
+
+
+    contexto.preguntaPendiente =
+        null;
 
 
     prospecto.actualizado =
@@ -1472,13 +1788,38 @@ function guardarDatoConfirmadoV2(
 }
 
 
+async function escalarAsesorV4(
+    telefono,
+    texto,
+    motivo
+) {
+
+    const prospecto =
+        obtenerProspecto(
+            telefono
+        );
+
+
+    activarModoAsesorV4(
+        prospecto
+    );
+
+
+    await notificarAsesor(
+        telefono,
+        texto,
+        motivo
+    );
+}
+
+
 /*
-============================================================
-PREGUNTA O AFIRMACION
-============================================================
+====================================================================
+SEGMENTACION
+====================================================================
 */
 
-function esSegmentoPreguntaV2(
+function esPreguntaV4(
     texto
 ) {
 
@@ -1488,7 +1829,7 @@ function esSegmentoPreguntaV2(
 
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             original
         );
 
@@ -1508,7 +1849,7 @@ function esSegmentoPreguntaV2(
 
 
     return (
-        /^(que|como|cuando|cuanto|cual|donde|por que|pueden|hacen|ofrecen|tienen|manejan|trabajan|se puede)\b/.test(
+        /^(que|como|cuando|cuanto|cual|donde|por que|pueden|hacen|ofrecen|tienen|manejan|trabajan|necesito|se puede)\b/.test(
             limpio
         ) ||
 
@@ -1519,24 +1860,15 @@ function esSegmentoPreguntaV2(
 }
 
 
-/*
-============================================================
-SEPARAR MENSAJE EN SEGMENTOS
-============================================================
-*/
-
-function separarSegmentosV2(
+function separarSegmentosV4(
     texto
 ) {
 
-    const preparado =
+    let preparado =
         String(texto || '')
+            .replace(/\r/g, ' ')
             .replace(
-                /\r/g,
-                ' '
-            )
-            .replace(
-                /,\s*(?=¿?\s*(?:qué|que|cómo|como|cuándo|cuando|cuánto|cuanto|cuál|cual|dónde|donde|por qué|por que|pueden|hacen|ofrecen|tienen|manejan|trabajan|se puede)\b)/gi,
+                /\s+(?:pero|y)\s+(?=(?:¿?\s*)?(?:que|qué|como|cómo|cuando|cuándo|cuanto|cuánto|cual|cuál|donde|dónde|por que|por qué|pueden|hacen|ofrecen|tienen|manejan|trabajan|se puede)\b)/gi,
                 '. '
             );
 
@@ -1562,7 +1894,7 @@ function separarSegmentosV2(
                     parte,
 
                 esPregunta:
-                    esSegmentoPreguntaV2(
+                    esPreguntaV4(
                         parte
                     )
             })
@@ -1571,76 +1903,55 @@ function separarSegmentosV2(
 
 
 /*
-============================================================
-OBTENER SOLO AFIRMACIONES
-============================================================
+====================================================================
+PREGUNTA DIRECTA
+====================================================================
 */
 
-function obtenerTextoAfirmativoV2(
+function analizarPreguntaDirectaV4(
     texto
 ) {
 
-    return separarSegmentosV2(
-        texto
-    )
-        .filter(
-            segmento =>
-                !segmento.esPregunta
-        )
-        .map(
-            segmento =>
-                segmento.texto
-        )
-        .join('. ')
-        .trim();
-}
-
-
-/*
-============================================================
-ANALIZAR PREGUNTAS
-============================================================
-*/
-
-function analizarPreguntaClienteV2(
-    texto
-) {
-
-    const segmentosPregunta =
-        separarSegmentosV2(
+    const preguntas =
+        separarSegmentosV4(
             texto
         )
             .filter(
                 segmento =>
                     segmento.esPregunta
-            )
-            .map(
-                segmento =>
-                    segmento.texto
             );
 
 
     if (
-        segmentosPregunta.length === 0
+        preguntas.length ===
+        0
     ) {
 
         return {
 
-            esPregunta: false,
+            existe:
+                false,
 
-            tipo: null,
+            tipo:
+                null,
 
-            texto: null
+            texto:
+                null
         };
     }
 
 
     const pregunta =
-        segmentosPregunta.join(' ');
+        preguntas
+            .map(
+                segmento =>
+                    segmento.texto
+            )
+            .join(' ');
 
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             pregunta
         );
 
@@ -1653,9 +1964,11 @@ function analizarPreguntaClienteV2(
 
         return {
 
-            esPregunta: true,
+            existe:
+                true,
 
-            tipo: 'precio',
+            tipo:
+                'precio',
 
             texto:
                 pregunta
@@ -1664,16 +1977,18 @@ function analizarPreguntaClienteV2(
 
 
     if (
-        /\b(cuanto tarda|cuanto demora|cuanto tiempo|tiempo de entrega|cuando estaria|fecha de entrega)\b/.test(
+        /\b(cuanto tarda|cuanto demora|cuanto tiempo|tiempo de entrega|fecha de entrega|cuando estaria)\b/.test(
             limpio
         )
     ) {
 
         return {
 
-            esPregunta: true,
+            existe:
+                true,
 
-            tipo: 'tiempo',
+            tipo:
+                'tiempo',
 
             texto:
                 pregunta
@@ -1689,9 +2004,11 @@ function analizarPreguntaClienteV2(
 
         return {
 
-            esPregunta: true,
+            existe:
+                true,
 
-            tipo: 'servicios',
+            tipo:
+                'servicios',
 
             texto:
                 pregunta
@@ -1707,9 +2024,11 @@ function analizarPreguntaClienteV2(
 
         return {
 
-            esPregunta: true,
+            existe:
+                true,
 
-            tipo: 'capacidad',
+            tipo:
+                'capacidad',
 
             texto:
                 pregunta
@@ -1725,9 +2044,11 @@ function analizarPreguntaClienteV2(
 
         return {
 
-            esPregunta: true,
+            existe:
+                true,
 
-            tipo: 'requisitos',
+            tipo:
+                'requisitos',
 
             texto:
                 pregunta
@@ -1737,9 +2058,11 @@ function analizarPreguntaClienteV2(
 
     return {
 
-        esPregunta: true,
+        existe:
+            true,
 
-        tipo: 'otra',
+        tipo:
+            'otra',
 
         texto:
             pregunta
@@ -1748,20 +2071,86 @@ function analizarPreguntaClienteV2(
 
 
 /*
-============================================================
-PUNTUACION DE COINCIDENCIAS
-============================================================
+====================================================================
+FUERA DE FOCO
+====================================================================
 */
 
-function sumarCoincidenciasV2(
+function detectarSolicitudFueraDeFocoV4(
+    texto
+) {
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    const impresionFisica =
+
+        /\b(imprimir|impresion|impresora|fabricar|fabricacion)\b[^.]{0,40}\b3d\b/.test(
+            limpio
+        ) ||
+
+        /\b3d\b[^.]{0,40}\b(imprimir|impresion|impresora|fabricar|fabricacion)\b/.test(
+            limpio
+        );
+
+
+    if (!impresionFisica) {
+
+        return {
+
+            fueraDeFoco:
+                false,
+
+            tipo:
+                null,
+
+            componenteDigital:
+                false
+        };
+    }
+
+
+    const componenteDigital =
+        /\b(modelo 3d|modelado 3d|crear el modelo|hacer el modelo|archivo 3d|asset 3d)\b/.test(
+            limpio
+        );
+
+
+    return {
+
+        fueraDeFoco:
+            !componenteDigital,
+
+        tipo:
+            'impresion_3d_fisica',
+
+        componenteDigital
+    };
+}
+
+
+/*
+====================================================================
+DETECTAR SECTOR POR PUNTUACION
+====================================================================
+*/
+
+function puntuarPatronesV4(
     texto,
     reglas
 ) {
 
-    let total = 0;
+    let puntos =
+        0;
 
 
-    for (const regla of reglas) {
+    for (
+        const regla
+        of reglas
+    ) {
 
         if (
             regla.patron.test(
@@ -1769,28 +2158,22 @@ function sumarCoincidenciasV2(
             )
         ) {
 
-            total +=
+            puntos +=
                 regla.peso;
         }
     }
 
 
-    return total;
+    return puntos;
 }
 
 
-/*
-============================================================
-DETECTAR SECTOR POR PUNTUACION
-============================================================
-*/
-
-function detectarSectorV2(
+function detectarSectorV4(
     texto
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
@@ -1808,14 +2191,16 @@ function detectarSectorV2(
                 patron:
                     /\b(clinica|hospital|paciente|pacientes|medico|medica|medicina|odontologia|cirugia|salud|tratamiento)\b/,
 
-                peso: 5
+                peso:
+                    5
             },
 
             {
                 patron:
-                    /\b(procedimiento|intervencion)\b/,
+                    /\b(procedimiento)\b/,
 
-                peso: 1
+                peso:
+                    1
             }
         ],
 
@@ -1824,23 +2209,26 @@ function detectarSectorV2(
 
             {
                 patron:
-                    /\b(maquina|maquinaria|fabrica|manufactura|industrial|industria|planta|ensamble)\b/,
+                    /\b(maquina|maquinaria|industria|industrial|fabrica|manufactura|planta|ensamble)\b/,
 
-                peso: 5
+                peso:
+                    5
             },
 
             {
                 patron:
-                    /\b(mantenimiento|operacion|proceso industrial|linea de produccion)\b/,
+                    /\b(mantenimiento|operacion|linea de produccion|proceso industrial)\b/,
 
-                peso: 4
+                peso:
+                    4
             },
 
             {
                 patron:
                     /\b(procedimiento|proceso)\b/,
 
-                peso: 1
+                peso:
+                    1
             }
         ],
 
@@ -1851,14 +2239,16 @@ function detectarSectorV2(
                 patron:
                     /\b(inmobiliaria|inmobiliario|constructora|apartamentos|venta sobre planos|proyecto inmobiliario)\b/,
 
-                peso: 5
+                peso:
+                    5
             },
 
             {
                 patron:
-                    /\b(compradores|sala de ventas)\b/,
+                    /\b(inversionistas|compradores|sala de ventas)\b/,
 
-                peso: 2
+                peso:
+                    2
             }
         ],
 
@@ -1869,14 +2259,16 @@ function detectarSectorV2(
                 patron:
                     /\b(arquitectura|arquitectonico|arquitectonica|fachada|interiorismo|urbanismo)\b/,
 
-                peso: 5
+                peso:
+                    5
             },
 
             {
                 patron:
                     /\b(edificio|vivienda|casa|planos)\b/,
 
-                peso: 2
+                peso:
+                    2
             }
         ],
 
@@ -1885,9 +2277,10 @@ function detectarSectorV2(
 
             {
                 patron:
-                    /\b(colegio|universidad|estudiantes|educacion|educativo|curso|capacitacion|aprendizaje)\b/,
+                    /\b(educacion|educativo|colegio|universidad|estudiante|estudiantes|curso|capacitacion|aprendizaje)\b/,
 
-                peso: 5
+                peso:
+                    5
             }
         ],
 
@@ -1898,7 +2291,8 @@ function detectarSectorV2(
                 patron:
                     /\b(videojuego|videojuegos|gaming|unreal|unity|uefn|game)\b/,
 
-                peso: 5
+                peso:
+                    5
             }
         ],
 
@@ -1909,7 +2303,8 @@ function detectarSectorV2(
                 patron:
                     /\b(producto|productos|catalogo|packaging|empaque|mueble|mobiliario|prototipo)\b/,
 
-                peso: 4
+                peso:
+                    5
             }
         ],
 
@@ -1920,7 +2315,8 @@ function detectarSectorV2(
                 patron:
                     /\b(publicidad|marketing|campana|marca|redes sociales|promocion)\b/,
 
-                peso: 5
+                peso:
+                    5
             }
         ],
 
@@ -1929,16 +2325,10 @@ function detectarSectorV2(
 
             {
                 patron:
-                    /\b(software|aplicacion|plataforma|sistema|automatizacion|inteligencia artificial|chatbot)\b/,
+                    /\b(software|aplicacion|app|plataforma|sistema|automatizacion|inteligencia artificial|chatbot)\b/,
 
-                peso: 5
-            },
-
-            {
-                patron:
-                    /\b(tecnologia)\b/,
-
-                peso: 2
+                peso:
+                    5
             }
         ]
     };
@@ -1952,8 +2342,8 @@ function detectarSectorV2(
         0;
 
 
-    let empate =
-        false;
+    let segundoPuntaje =
+        0;
 
 
     for (
@@ -1967,7 +2357,7 @@ function detectarSectorV2(
     ) {
 
         const puntaje =
-            sumarCoincidenciasV2(
+            puntuarPatronesV4(
                 limpio,
                 reglas
             );
@@ -1978,281 +2368,179 @@ function detectarSectorV2(
             mejorPuntaje
         ) {
 
-            mejor =
-                sector;
+            segundoPuntaje =
+                mejorPuntaje;
 
 
             mejorPuntaje =
                 puntaje;
 
 
-            empate =
-                false;
+            mejor =
+                sector;
 
         } else if (
-            puntaje > 0 &&
-            puntaje === mejorPuntaje
-        ) {
-
-            empate =
-                true;
-        }
-    }
-
-
-    if (
-        mejorPuntaje < 2 ||
-        empate
-    ) {
-
-        return null;
-    }
-
-
-    return mejor;
-}
-
-
-/*
-============================================================
-DETECTAR TIPO DE NECESIDAD
-============================================================
-*/
-
-function detectarTipoNecesidadV2(
-    texto
-) {
-
-    const limpio =
-        limpiarTextoParaReglas(
-            texto
-        );
-
-
-    if (!limpio) {
-        return null;
-    }
-
-
-    const tipos = {
-
-        explicacion: [
-
-            {
-                patron:
-                    /\b(explicar|comprender|entender|comunicar|ensenar|mostrar como funciona)\b/,
-
-                peso: 4
-            }
-        ],
-
-
-        visualizacion: [
-
-            {
-                patron:
-                    /\b(visualizar|renderizado|modelo 3d|modelado 3d|ver como queda|ver como quedaria)\b/,
-
-                peso: 5
-            },
-
-            {
-                patron:
-                    /\b(render|renders)\b/,
-
-                peso: 3
-            }
-        ],
-
-
-        presentacion: [
-
-            {
-                patron:
-                    /\b(presentar|presentacion|inversionistas|mostrar a clientes|convencer|vender el proyecto)\b/,
-
-                peso: 5
-            }
-        ],
-
-
-        simulacion: [
-
-            {
-                patron:
-                    /\b(simular|simulacion|funcionamiento|operacion|entrenamiento)\b/,
-
-                peso: 4
-            }
-        ],
-
-
-        inmersivo: [
-
-            {
-                patron:
-                    /\b(realidad virtual|realidad aumentada|\bvr\b|\bar\b|\bxr\b|recorrido virtual|inmersivo|inmersiva)\b/,
-
-                peso: 5
-            }
-        ],
-
-
-        inteligencia_artificial: [
-
-            {
-                patron:
-                    /\b(inteligencia artificial|\bia\b|automatizar|automatizacion|chatbot|asistente virtual)\b/,
-
-                peso: 5
-            }
-        ]
-    };
-
-
-    let mejor =
-        null;
-
-
-    let puntajeMejor =
-        0;
-
-
-    for (
-        const [
-            tipo,
-            reglas
-        ]
-        of Object.entries(
-            tipos
-        )
-    ) {
-
-        const puntaje =
-            sumarCoincidenciasV2(
-                limpio,
-                reglas
-            );
-
-
-        if (
             puntaje >
-            puntajeMejor
+            segundoPuntaje
         ) {
 
-            mejor =
-                tipo;
-
-
-            puntajeMejor =
+            segundoPuntaje =
                 puntaje;
         }
     }
 
 
-    return (
-        puntajeMejor > 0
-            ? mejor
-            : null
-    );
+    if (
+        mejorPuntaje <
+        2
+    ) {
+
+        return null;
+    }
+
+
+    let confianza =
+        0.65 +
+        Math.min(
+            0.3,
+            mejorPuntaje * 0.04
+        );
+
+
+    if (
+        segundoPuntaje > 0 &&
+        mejorPuntaje -
+            segundoPuntaje <=
+            1
+    ) {
+
+        confianza -=
+            0.2;
+    }
+
+
+    return {
+
+        valor:
+            mejor,
+
+        confianza:
+            Math.max(
+                0.45,
+                Math.min(
+                    0.98,
+                    confianza
+                )
+            )
+    };
 }
 
 
 /*
-============================================================
-DETECTAR TIPO DE PROYECTO
-============================================================
+====================================================================
+TIPO DE NECESIDAD
+====================================================================
 */
 
-function detectarTipoProyectoV2(
+function detectarTipoNecesidadV4(
     texto
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
 
     const reglas = [
 
-        [
-            'clinica',
-            /\bclinica\b/
-        ],
+        {
+            valor:
+                'inmersivo',
 
-        [
-            'hospital',
-            /\bhospital\b/
-        ],
+            patron:
+                /\b(realidad virtual|realidad aumentada|\bvr\b|\bar\b|\bxr\b|recorrido virtual|inmersivo|inmersiva|recorrer virtualmente)\b/,
 
-        [
-            'apartamentos',
-            /\bapartamentos?\b/
-        ],
+            confianza:
+                0.95
+        },
 
-        [
-            'edificio',
-            /\bedificios?\b/
-        ],
+        {
+            valor:
+                'inteligencia_artificial',
 
-        [
-            'vivienda',
-            /\bviviendas?\b/
-        ],
+            patron:
+                /\b(inteligencia artificial|\bia\b|chatbot|asistente virtual|automatizacion con ia)\b/,
 
-        [
-            'casa',
-            /\bcasas?\b/
-        ],
+            confianza:
+                0.94
+        },
 
-        [
-            'producto',
-            /\bproductos?\b/
-        ],
+        {
+            valor:
+                'simulacion',
 
-        [
-            'maquina',
-            /\bmaquinas?\b/
-        ],
+            patron:
+                /\b(simular|simulacion|entrenamiento virtual|funcionamiento|operacion)\b/,
 
-        [
-            'curso',
-            /\bcursos?\b/
-        ],
+            confianza:
+                0.86
+        },
 
-        [
-            'videojuego',
-            /\bvideojuegos?\b/
-        ],
+        {
+            valor:
+                'presentacion',
 
-        [
-            'plataforma',
-            /\bplataformas?\b/
-        ],
+            patron:
+                /\b(presentar|presentacion|inversionista|inversionistas|mostrar a clientes|vender proyecto|convencer)\b/,
 
-        [
-            'aplicacion',
-            /\b(aplicacion|app)\b/
-        ]
+            confianza:
+                0.86
+        },
+
+        {
+            valor:
+                'visualizacion',
+
+            patron:
+                /\b(visualizar|render|renders|renderizado|modelo 3d|modelado 3d|ver como queda|ver como quedaria)\b/,
+
+            confianza:
+                0.84
+        },
+
+        {
+            valor:
+                'explicacion',
+
+            patron:
+                /\b(explicar|comprender|entender|comunicar|ensenar|mostrar como funciona)\b/,
+
+            confianza:
+                0.8
+        }
     ];
 
 
     for (
-        const [
-            valor,
-            patron
-        ]
+        const regla
         of reglas
     ) {
 
         if (
-            patron.test(
+            regla.patron.test(
                 limpio
             )
         ) {
 
-            return valor;
+            return {
+
+                valor:
+                    regla.valor,
+
+                confianza:
+                    regla.confianza
+            };
         }
     }
 
@@ -2262,17 +2550,17 @@ function detectarTipoProyectoV2(
 
 
 /*
-============================================================
-DETECTAR AUDIENCIA
-============================================================
+====================================================================
+AUDIENCIA
+====================================================================
 */
 
-function detectarAudienciaV2(
+function detectarAudienciaV4(
     texto
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
@@ -2310,13 +2598,13 @@ function detectarAudienciaV2(
         ],
 
         [
-            'equipo interno',
-            /\b(equipo interno|empleados|personal interno)\b/
+            'operadores',
+            /\boperadores?\b/
         ],
 
         [
-            'operadores',
-            /\boperadores?\b/
+            'equipo interno',
+            /\b(equipo interno|empleados|personal interno)\b/
         ],
 
         [
@@ -2340,7 +2628,13 @@ function detectarAudienciaV2(
             )
         ) {
 
-            return valor;
+            return {
+
+                valor,
+
+                confianza:
+                    0.92
+            };
         }
     }
 
@@ -2350,73 +2644,54 @@ function detectarAudienciaV2(
 
 
 /*
-============================================================
-DETECTAR MATERIALES
-============================================================
+====================================================================
+MATERIALES
+====================================================================
 */
 
-function detectarMaterialesV2(
+function detectarMaterialesV4(
     texto,
-    permitirRespuestaCorta = false
+    contextoRespuesta = false
 ) {
 
     let limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
 
-    if (!limpio) {
-        return null;
-    }
-
-
-    const ausenciaTotal =
-        /\b(no tengo material|no tenemos material|no tengo nada|no tenemos nada|solo tengo la idea|solo tenemos la idea|desde cero)\b/.test(
+    const posesion =
+        /\b(ya tengo|ya tenemos|tengo|tenemos|cuento con|contamos con|dispongo de|disponemos de|me entregaron|nos entregaron|me enviaron|nos enviaron)\b/.test(
             limpio
         );
 
 
-    const contextoPosesion =
-        /\b(ya tengo|ya tenemos|tengo|tenemos|cuento con|contamos con|dispongo de|disponemos de|me dieron|nos dieron|me entregaron|nos entregaron|me enviaron|nos enviaron)\b/.test(
+    const sinMaterial =
+        /\b(no tengo nada|no tenemos nada|solo tengo la idea|solo tenemos la idea|desde cero|no tengo material|no tenemos material)\b/.test(
             limpio
         );
 
 
     if (
-        !ausenciaTotal &&
-        !contextoPosesion &&
-        !permitirRespuestaCorta
+        !posesion &&
+        !sinMaterial &&
+        !contextoRespuesta
     ) {
 
         return null;
     }
 
 
-    const negaciones = [
+    if (sinMaterial) {
 
-        /\bno (?:tengo|tenemos|cuento con|contamos con) (?:los |las |un |una )?planos?\b/g,
+        return {
 
-        /\bno (?:tengo|tenemos|cuento con|contamos con) (?:los |las |un |una )?renders?\b/g,
+            valor:
+                'sin material disponible',
 
-        /\bno (?:tengo|tenemos|cuento con|contamos con) (?:los |las |un |una )?(?:imagenes?|fotos|fotografias?)\b/g,
-
-        /\bno (?:tengo|tenemos|cuento con|contamos con) (?:los |las |un |una )?videos?\b/g,
-
-        /\bno (?:tengo|tenemos|cuento con|contamos con) (?:los |las |un |una )?modelos? 3d\b/g
-    ];
-
-
-    for (
-        const patron
-        of negaciones
-    ) {
-
-        limpio =
-            limpio.replace(
-                patron,
-                ' '
-            );
+            confianza:
+                0.96
+        };
     }
 
 
@@ -2459,7 +2734,7 @@ function detectarMaterialesV2(
 
         [
             'documentacion',
-            /\b(documentos|documentacion|manuales|guias)\b/
+            /\b(documentacion|documentos|manuales|guias)\b/
         ],
 
         [
@@ -2474,7 +2749,8 @@ function detectarMaterialesV2(
     ];
 
 
-    const encontrados = [];
+    const encontrados =
+        [];
 
 
     for (
@@ -2499,35 +2775,39 @@ function detectarMaterialesV2(
 
 
     if (
-        encontrados.length > 0
+        encontrados.length ===
+        0
     ) {
 
-        return encontrados.join(', ');
+        return null;
     }
 
 
-    if (ausenciaTotal) {
+    return {
 
-        return 'sin material disponible';
-    }
+        valor:
+            encontrados.join(', '),
 
-
-    return null;
+        confianza:
+            posesion
+                ? 0.96
+                : 0.82
+    };
 }
 
 
 /*
-============================================================
-DETECTAR PLAZO
-============================================================
+====================================================================
+PLAZO
+====================================================================
 */
 
-function detectarPlazoV2(
+function detectarPlazoV4(
     texto
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
@@ -2554,17 +2834,27 @@ function detectarPlazoV2(
     ];
 
 
-    for (const patron of patrones) {
+    for (
+        const patron
+        of patrones
+    ) {
 
-        const coincidencia =
+        const match =
             limpio.match(
                 patron
             );
 
 
-        if (coincidencia) {
+        if (match) {
 
-            return coincidencia[0];
+            return {
+
+                valor:
+                    match[0],
+
+                confianza:
+                    0.94
+            };
         }
     }
 
@@ -2574,17 +2864,17 @@ function detectarPlazoV2(
 
 
 /*
-============================================================
-DETECTAR PRESUPUESTO
-============================================================
+====================================================================
+PRESUPUESTO
+====================================================================
 */
 
-function detectarPresupuestoV2(
+function detectarPresupuestoV4(
     texto
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
@@ -2597,20 +2887,34 @@ function detectarPresupuestoV2(
 
     if (monto) {
 
-        return monto[0];
+        return {
+
+            valor:
+                monto[0],
+
+            confianza:
+                0.96
+        };
     }
 
 
     if (
-        /\b(presupuesto definido|presupuesto aproximado|rango de inversion|podemos invertir|tenemos para invertir)\b/.test(
+        /\b(mi presupuesto es|tenemos un presupuesto|podemos invertir|rango de inversion)\b/.test(
             limpio
         )
     ) {
 
-        return resumirTextoV2(
-            texto,
-            120
-        );
+        return {
+
+            valor:
+                resumirTextoV4(
+                    texto,
+                    120
+                ),
+
+            confianza:
+                0.85
+        };
     }
 
 
@@ -2619,64 +2923,45 @@ function detectarPresupuestoV2(
 
 
 /*
-============================================================
-DETECTAR CANTIDAD
-============================================================
+====================================================================
+USO FINAL
+====================================================================
 */
 
-function detectarCantidadV2(
+function detectarUsoFinalV4(
     texto
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
 
-    const coincidencia =
-        limpio.match(
-            /\b(?:\d+|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\s+(?:procedimientos?|productos?|apartamentos?|edificios?|imagenes?|renders?|modelos?|escenas?|variantes?|maquinas?)\b/
-        );
+    const patrones = [
 
+        /\bpara vender(?:lo|la|los|las)?\b[^.?!]*/,
 
-    return (
-        coincidencia
-            ? coincidencia[0]
-            : null
-    );
-}
+        /\bpara presentar(?:lo|la|los|las)?\b[^.?!]*/,
 
+        /\bpara mostrar(?:lo|la|los|las)?\b[^.?!]*/,
 
-/*
-============================================================
-DETECTAR USO FINAL
-============================================================
-*/
+        /\bpara capacitar\b[^.?!]*/,
 
-function detectarUsoFinalV2(
-    texto
-) {
+        /\bpara entrenar\b[^.?!]*/,
 
-    const limpio =
-        limpiarTextoParaReglas(
-            texto
-        );
+        /\bpara explicar\b[^.?!]*/,
 
+        /\bpara promocionar\b[^.?!]*/,
 
-    const reglas = [
-
-        /\bpara (?:presentar|mostrar|vender|capacitar|entrenar|explicar|ensenar|validar|promocionar)[^.?!]*/,
-
-        /\bse va a usar para [^.?!]*/,
-
-        /\blo vamos a usar para [^.?!]*/,
-
-        /\bla vamos a usar para [^.?!]*/
+        /\bpara inversionistas\b[^.?!]*/
     ];
 
 
-    for (const patron of reglas) {
+    for (
+        const patron
+        of patrones
+    ) {
 
         const match =
             limpio.match(
@@ -2686,10 +2971,17 @@ function detectarUsoFinalV2(
 
         if (match) {
 
-            return resumirTextoV2(
-                match[0],
-                120
-            );
+            return {
+
+                valor:
+                    resumirTextoV4(
+                        match[0],
+                        130
+                    ),
+
+                confianza:
+                    0.88
+            };
         }
     }
 
@@ -2699,67 +2991,1116 @@ function detectarUsoFinalV2(
 
 
 /*
-============================================================
-CORRECCIONES
-============================================================
+====================================================================
+ALCANCE EXPLICITO
+====================================================================
 */
 
-function esCorreccionV2(
-    texto
+function detectarAlcanceV4(
+    texto,
+    contextoRespuesta = false
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
 
-    return /\b(te dije|ya te dije|como te dije|en realidad|corrijo|correccion|mejor dicho|no, es|no es|quise decir)\b/.test(
+    const explicito =
+        limpio.match(
+            /\b(?:solo necesito|solo queremos|primera etapa|incluir|incluya|parte principal|inicialmente)\b[^.?!]*/
+        );
+
+
+    if (explicito) {
+
+        return {
+
+            valor:
+                resumirTextoV4(
+                    explicito[0],
+                    150
+                ),
+
+            confianza:
+                0.88
+        };
+    }
+
+
+    if (
+        contextoRespuesta
+    ) {
+
+        const palabras =
+            limpio
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        if (
+            palabras.length >= 1 &&
+            palabras.length <= 12 &&
+            !esPreguntaV4(
+                texto
+            )
+        ) {
+
+            return {
+
+                valor:
+                    resumirTextoV4(
+                        texto,
+                        120
+                    ),
+
+                confianza:
+                    0.74
+            };
+        }
+    }
+
+
+    return null;
+}
+
+
+/*
+====================================================================
+OBJETIVO / DOLOR / BENEFICIO
+====================================================================
+*/
+
+function detectarObjetivoV4(
+    texto
+) {
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    if (
+        /\b(necesito|necesitamos|quiero|queremos|busco|buscamos|me gustaria)\b/.test(
+            limpio
+        )
+    ) {
+
+        return {
+
+            valor:
+                resumirTextoV4(
+                    texto,
+                    170
+                ),
+
+            confianza:
+                0.86
+        };
+    }
+
+
+    return null;
+}
+
+
+function detectarDolorV4(
+    texto
+) {
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    if (
+        /\b(problema|dificil|dificultad|cuesta|no entienden|no entiende|no podemos|no puedo|no logro|no logran|falla|confunde|complicado)\b/.test(
+            limpio
+        )
+    ) {
+
+        return {
+
+            valor:
+                resumirTextoV4(
+                    texto,
+                    160
+                ),
+
+            confianza:
+                0.86
+        };
+    }
+
+
+    return null;
+}
+
+
+function detectarBeneficioV4(
+    texto
+) {
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    if (
+        /\b(quiero que|queremos que|me gustaria que|busco que|necesito que)\b/.test(
+            limpio
+        )
+    ) {
+
+        return {
+
+            valor:
+                resumirTextoV4(
+                    texto,
+                    160
+                ),
+
+            confianza:
+                0.84
+        };
+    }
+
+
+    return null;
+}
+
+
+/*
+====================================================================
+CORRECCION
+====================================================================
+*/
+
+function esCorreccionV4(
+    texto
+) {
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    return /\b(te dije|ya te dije|como te dije|en realidad|corrijo|correccion|mejor dicho|quise decir|no es|no, es)\b/.test(
         limpio
     );
 }
 
 
 /*
-============================================================
-SOLICITAR ASESOR
-============================================================
+====================================================================
+EXTRAER HECHOS
+====================================================================
 */
 
-function clientePideAsesorV2(
-    texto
+function extraerHechosMensajeV4(
+    texto,
+    prospecto
 ) {
 
-    const limpio =
-        limpiarTextoParaReglas(
+    const contexto =
+        asegurarContextoConversacionalV4(
+            prospecto
+        );
+
+
+    const segmentos =
+        separarSegmentosV4(
             texto
         );
 
 
-    return (
-        /\b(quiero|necesito|puedo|quisiera|me gustaria)\s+(?:hablar|comunicarme|contactar|pasar)\s+(?:con\s+)?(?:un\s+|una\s+|el\s+|la\s+)?(?:asesor|persona|humano|equipo de trinity)\b/.test(
-            limpio
-        ) ||
+    const afirmaciones =
+        segmentos
+            .filter(
+                segmento =>
+                    !segmento.esPregunta
+            );
 
-        /\b(pasame|comunicame|comunicarme)\s+(?:con\s+)?(?:un\s+|una\s+)?(?:asesor|persona|humano)\b/.test(
-            limpio
+
+    const textoAfirmativo =
+        afirmaciones
+            .map(
+                segmento =>
+                    segmento.texto
+            )
+            .join('. ')
+            .trim();
+
+
+    const hechos =
+        {};
+
+
+    if (!textoAfirmativo) {
+
+        return hechos;
+    }
+
+
+    const sector =
+        detectarSectorV4(
+            textoAfirmativo
+        );
+
+
+    if (sector) {
+        hechos.sector =
+            sector;
+    }
+
+
+    const tipo =
+        detectarTipoNecesidadV4(
+            textoAfirmativo
+        );
+
+
+    if (tipo) {
+        hechos.tipoNecesidad =
+            tipo;
+    }
+
+
+    const audiencia =
+        detectarAudienciaV4(
+            textoAfirmativo
+        );
+
+
+    if (audiencia) {
+        hechos.audiencia =
+            audiencia;
+    }
+
+
+    const materiales =
+        detectarMaterialesV4(
+            textoAfirmativo,
+            contexto.preguntaPendiente ===
+                'materiales'
+        );
+
+
+    if (materiales) {
+        hechos.materiales =
+            materiales;
+    }
+
+
+    const plazo =
+        detectarPlazoV4(
+            textoAfirmativo
+        );
+
+
+    if (plazo) {
+        hechos.plazo =
+            plazo;
+    }
+
+
+    const presupuesto =
+        detectarPresupuestoV4(
+            textoAfirmativo
+        );
+
+
+    if (presupuesto) {
+        hechos.presupuesto =
+            presupuesto;
+    }
+
+
+    const usoFinal =
+        detectarUsoFinalV4(
+            textoAfirmativo
+        );
+
+
+    if (usoFinal) {
+        hechos.usoFinal =
+            usoFinal;
+    }
+
+
+    const alcance =
+        detectarAlcanceV4(
+            textoAfirmativo,
+            contexto.preguntaPendiente ===
+                'alcance'
+        );
+
+
+    if (alcance) {
+        hechos.alcance =
+            alcance;
+    }
+
+
+    for (
+        const segmento
+        of afirmaciones
+    ) {
+
+        const objetivo =
+            detectarObjetivoV4(
+                segmento.texto
+            );
+
+
+        if (objetivo) {
+            hechos.objetivo =
+                objetivo;
+        }
+
+
+        const dolor =
+            detectarDolorV4(
+                segmento.texto
+            );
+
+
+        if (dolor) {
+            hechos.dolor =
+                dolor;
+        }
+
+
+        const beneficio =
+            detectarBeneficioV4(
+                segmento.texto
+            );
+
+
+        if (beneficio) {
+            hechos.beneficioEsperado =
+                beneficio;
+        }
+    }
+
+
+    if (
+        !hechos.objetivo &&
+        textoAfirmativo.length >= 18 &&
+        !/^(si|no|ok|okay|listo|vale|bien)$/i.test(
+            textoAfirmativo.trim()
         )
-    );
+    ) {
+
+        hechos.necesidad = {
+
+            valor:
+                resumirTextoV4(
+                    textoAfirmativo,
+                    180
+                ),
+
+            confianza:
+                0.68
+        };
+    }
+
+
+    return hechos;
 }
 
 
 /*
-============================================================
-CAPACIDADES CONOCIDAS
-============================================================
+====================================================================
+ANALIZADOR CENTRAL
+====================================================================
 */
 
-function detectarCapacidadConocidaV2(
+function analizarMensajeClienteV4(
+    texto,
+    prospecto
+) {
+
+    const pregunta =
+        analizarPreguntaDirectaV4(
+            texto
+        );
+
+
+    const fueraFoco =
+        detectarSolicitudFueraDeFocoV4(
+            texto
+        );
+
+
+    const hechos =
+        extraerHechosMensajeV4(
+            texto,
+            prospecto
+        );
+
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    return {
+
+        textoOriginal:
+            String(texto || '')
+                .trim(),
+
+        pideAsesor:
+            clientePideAsesorV4(
+                texto
+            ),
+
+        reset:
+            esComandoResetV4(
+                texto
+            ),
+
+        saludo:
+            /^(hola|holi|buenas|buenos dias|buenas tardes|buenas noches|hey|hello)[\s!.,¿?]*$/.test(
+                limpio
+            ),
+
+        agradecimiento:
+            /^(gracias|muchas gracias|mil gracias|gracias trinity)[\s!.,]*$/.test(
+                limpio
+            ),
+
+        despedida:
+            /^(adios|hasta luego|nos vemos|chao|chau|hasta pronto)[\s!.,]*$/.test(
+                limpio
+            ),
+
+        confirmacion:
+            /^(si|dale|claro|por favor|de acuerdo|hagamoslo|okey)$/.test(
+                limpio
+            ),
+
+        negacion:
+            /^(no|todavia no|aun no|prefiero no|no gracias)$/.test(
+                limpio
+            ),
+
+        confirmacionVacia:
+            /^(ok|okay|listo|vale|entendido|bien)$/.test(
+                limpio
+            ),
+
+        correccion:
+            esCorreccionV4(
+                texto
+            ),
+
+        pregunta,
+
+        fueraFoco,
+
+        hechos
+    };
+}
+
+
+/*
+====================================================================
+ACTUALIZAR PROSPECTO CON CONFIANZA
+====================================================================
+*/
+
+function actualizarProspectoV4(
+    prospecto,
+    analisis
+) {
+
+    const contexto =
+        asegurarContextoConversacionalV4(
+            prospecto
+        );
+
+
+    for (
+        const [
+            campo,
+            dato
+        ]
+        of Object.entries(
+            analisis.hechos ||
+            {}
+        )
+    ) {
+
+        if (
+            !dato ||
+            dato.valor ===
+                undefined ||
+            dato.valor ===
+                null
+        ) {
+
+            continue;
+        }
+
+
+        const valor =
+            resumirTextoV4(
+                dato.valor,
+                200
+            );
+
+
+        const confianza =
+            Number(
+                dato.confianza ||
+                0
+            );
+
+
+        if (
+            confianza <
+            0.65
+        ) {
+
+            contexto.inferencias[
+                campo
+            ] = {
+
+                valor,
+
+                confianza
+            };
+
+
+            continue;
+        }
+
+
+        const anterior =
+            prospecto[
+                campo
+            ];
+
+
+        if (
+            !datoVacioV4(
+                anterior
+            ) &&
+            String(anterior)
+                .toLowerCase() !==
+            String(valor)
+                .toLowerCase()
+        ) {
+
+            if (
+                analisis.correccion
+            ) {
+
+                prospecto[
+                    campo
+                ] =
+                    valor;
+
+            } else {
+
+                contexto.contradicciones.push({
+
+                    campo,
+
+                    anterior:
+
+                        String(
+                            anterior
+                        ),
+
+                    nuevo:
+                        valor,
+
+                    fecha:
+                        new Date()
+                            .toISOString()
+                });
+
+
+                continue;
+            }
+
+        } else if (
+            datoVacioV4(
+                anterior
+            )
+        ) {
+
+            prospecto[
+                campo
+            ] =
+                valor;
+        }
+
+
+        contexto.hechosConfirmados[
+            campo
+        ] = {
+
+            valor:
+                prospecto[
+                    campo
+                ],
+
+            confianza,
+
+            actualizado:
+                new Date()
+                    .toISOString()
+        };
+    }
+
+
+    prospecto.actualizado =
+        new Date()
+            .toISOString();
+}
+
+
+/*
+====================================================================
+VALIDAR RESPUESTA SEGUN EL CAMPO
+====================================================================
+*/
+
+function validarRespuestaCampoV4(
+    campo,
+    texto,
+    prospecto,
+    analisis
+) {
+
+    if (
+        !campo ||
+        analisis.pregunta.existe ||
+        analisis.confirmacionVacia
+    ) {
+
+        return null;
+    }
+
+
+    if (
+        campo ===
+        'sector'
+    ) {
+
+        return detectarSectorV4(
+            texto
+        );
+    }
+
+
+    if (
+        campo ===
+        'materiales'
+    ) {
+
+        return detectarMaterialesV4(
+            texto,
+            true
+        );
+    }
+
+
+    if (
+        campo ===
+        'plazo'
+    ) {
+
+        return detectarPlazoV4(
+            texto
+        );
+    }
+
+
+    if (
+        campo ===
+        'presupuesto'
+    ) {
+
+        return detectarPresupuestoV4(
+            texto
+        );
+    }
+
+
+    if (
+        campo ===
+        'audiencia'
+    ) {
+
+        return detectarAudienciaV4(
+            texto
+        );
+    }
+
+
+    if (
+        campo ===
+        'usoFinal'
+    ) {
+
+        const uso =
+            detectarUsoFinalV4(
+                texto
+            );
+
+
+        if (uso) {
+            return uso;
+        }
+    }
+
+
+    if (
+        campo ===
+        'alcance'
+    ) {
+
+        return detectarAlcanceV4(
+            texto,
+            true
+        );
+    }
+
+
+    const limpio =
+        textoReglasV4(
+            texto
+        );
+
+
+    const palabras =
+        limpio
+            .split(/\s+/)
+            .filter(Boolean);
+
+
+    if (
+        palabras.length <
+        2
+    ) {
+
+        return null;
+    }
+
+
+    if (
+        campo ===
+        'objetivo'
+    ) {
+
+        return {
+
+            valor:
+                resumirTextoV4(
+                    texto,
+                    170
+                ),
+
+            confianza:
+                0.74
+        };
+    }
+
+
+    if (
+        campo ===
+        'dolor'
+    ) {
+
+        return {
+
+            valor:
+                resumirTextoV4(
+                    texto,
+                    170
+                ),
+
+            confianza:
+                0.72
+        };
+    }
+
+
+    if (
+        campo ===
+        'beneficioEsperado'
+    ) {
+
+        return {
+
+            valor:
+                resumirTextoV4(
+                    texto,
+                    170
+                ),
+
+            confianza:
+                0.72
+        };
+    }
+
+
+    return null;
+}
+
+
+/*
+====================================================================
+PREGUNTA PENDIENTE
+====================================================================
+*/
+
+function resolverPreguntaPendienteV4(
+    prospecto,
+    texto,
+    analisis
+) {
+
+    const contexto =
+        asegurarContextoConversacionalV4(
+            prospecto
+        );
+
+
+    const campo =
+        contexto.preguntaPendiente;
+
+
+    if (!campo) {
+
+        return {
+
+            accion:
+                null
+        };
+    }
+
+
+    if (
+        campo ===
+        'confirmarRevision'
+    ) {
+
+        if (
+            analisis.confirmacion
+        ) {
+
+            contexto.preguntaPendiente =
+                null;
+
+
+            return {
+
+                accion:
+                    'ESCALAR'
+            };
+        }
+
+
+        if (
+            analisis.negacion
+        ) {
+
+            contexto.preguntaPendiente =
+                null;
+
+
+            contexto.revisionOfrecida =
+                false;
+
+
+            return {
+
+                accion:
+                    'NO_ESCALAR'
+            };
+        }
+
+
+        if (
+            analisis.pregunta.existe
+        ) {
+
+            return {
+
+                accion:
+                    'INTERRUPCION'
+            };
+        }
+
+
+        return {
+
+            accion:
+                null
+        };
+    }
+
+
+    if (
+        analisis.pregunta.existe
+    ) {
+
+        return {
+
+            accion:
+                'INTERRUPCION'
+        };
+    }
+
+
+    const validado =
+        validarRespuestaCampoV4(
+
+            campo,
+
+            texto,
+
+            prospecto,
+
+            analisis
+        );
+
+
+    if (validado) {
+
+        if (
+            datoVacioV4(
+                prospecto[
+                    campo
+                ]
+            )
+        ) {
+
+            prospecto[
+                campo
+            ] =
+                validado.valor;
+        }
+
+
+        contexto.hechosConfirmados[
+            campo
+        ] = {
+
+            valor:
+                prospecto[
+                    campo
+                ],
+
+            confianza:
+                validado.confianza,
+
+            actualizado:
+                new Date()
+                    .toISOString()
+        };
+
+
+        contexto.preguntaPendiente =
+            null;
+
+
+        return {
+
+            accion:
+                'RESPUESTA_VALIDA',
+
+            campo
+        };
+    }
+
+
+    if (
+        analisis.confirmacionVacia
+    ) {
+
+        contexto.reintentos[
+            campo
+        ] =
+            Number(
+                contexto.reintentos[
+                    campo
+                ] ||
+                0
+            ) + 1;
+
+
+        return {
+
+            accion:
+                'RESPUESTA_VACIA',
+
+            campo
+        };
+    }
+
+
+    /*
+    La respuesta no corresponde claramente al campo.
+    NO se guarda a la fuerza.
+    */
+
+    contexto.reintentos[
+        campo
+    ] =
+        Number(
+            contexto.reintentos[
+                campo
+            ] ||
+            0
+        ) + 1;
+
+
+    if (
+        contexto.reintentos[
+            campo
+        ] >= 1
+    ) {
+
+        contexto.preguntaPendiente =
+            null;
+    }
+
+
+    return {
+
+        accion:
+            'RESPUESTA_NO_CORRESPONDE',
+
+        campo
+    };
+}
+
+
+/*
+====================================================================
+CAPACIDADES TRINITY
+====================================================================
+*/
+
+function detectarCapacidadConocidaV4(
     texto
 ) {
 
     const limpio =
-        limpiarTextoParaReglas(
+        textoReglasV4(
             texto
         );
 
@@ -2777,7 +4118,7 @@ function detectarCapacidadConocidaV2(
         ],
 
         [
-            'experiencias virtuales e inmersivas',
+            'experiencias de realidad virtual',
             /\b(realidad virtual|\bvr\b|recorrido virtual|entorno virtual)\b/
         ],
 
@@ -2827,1035 +4168,244 @@ function detectarCapacidadConocidaV2(
 
 
 /*
-============================================================
-RESPONDER PREGUNTA DIRECTA
-============================================================
+====================================================================
+RESPONDER PREGUNTA
+====================================================================
 */
 
-function responderPreguntaDirectaV2(
-    texto
+function responderPreguntaDirectaV4(
+    analisis
 ) {
 
-    const analisis =
-        analizarPreguntaClienteV2(
-            texto
-        );
+    if (
+        !analisis.pregunta.existe
+    ) {
 
-
-    if (!analisis.esPregunta) {
-
-        return {
-
-            texto: null,
-
-            requiereRevision:
-                false
-        };
+        return null;
     }
 
 
-    const limpio =
-        limpiarTextoParaReglas(
-            analisis.texto ||
-            texto
-        );
+    const tipo =
+        analisis.pregunta.tipo;
+
+
+    const texto =
+        analisis.pregunta.texto;
 
 
     if (
-        analisis.tipo ===
+        tipo ===
         'precio'
     ) {
 
-        return {
-
-            texto:
-                'El valor depende del alcance, nivel de detalle y material disponible.',
-
-            requiereRevision:
-                false
-        };
+        return (
+            'El valor depende del alcance, nivel de detalle y material disponible.'
+        );
     }
 
 
     if (
-        analisis.tipo ===
+        tipo ===
         'tiempo'
     ) {
 
-        return {
-
-            texto:
-                'El tiempo depende del alcance y del material disponible.',
-
-            requiereRevision:
-                false
-        };
+        return (
+            'El tiempo depende del alcance y del material disponible.'
+        );
     }
 
 
     if (
-        analisis.tipo ===
+        tipo ===
         'servicios'
     ) {
 
-        return {
-
-            texto:
-                'Trabajamos modelado 3D, visualización, IA y experiencias VR, AR y XR.',
-
-            requiereRevision:
-                false
-        };
+        return (
+            'Trabajamos modelado 3D, visualización, IA, simulación y experiencias VR, AR y XR.'
+        );
     }
 
 
     if (
-        /\b(impresion 3d|imprimir en 3d|impresora 3d)\b/.test(
-            limpio
-        )
-    ) {
-
-        return {
-
-            texto:
-                'La impresión 3D no es nuestro foco principal; trabajamos principalmente soluciones digitales.',
-
-            requiereRevision:
-                false
-        };
-    }
-
-
-    if (
-        analisis.tipo ===
+        tipo ===
         'requisitos'
     ) {
 
-        return {
-
-            texto:
-                'El material necesario depende del alcance; podemos partir de lo que ya tengas disponible.',
-
-            requiereRevision:
-                false
-        };
+        return (
+            'Podemos evaluar el proyecto desde el material que ya tengas; los requisitos dependen del alcance.'
+        );
     }
 
 
     if (
-        analisis.tipo ===
+        tipo ===
         'capacidad'
     ) {
 
         const capacidad =
-            detectarCapacidadConocidaV2(
-                analisis.texto ||
+            detectarCapacidadConocidaV4(
                 texto
             );
 
 
         if (capacidad) {
 
-            return {
-
-                texto:
-                    `Sí, trabajamos ${capacidad}.`,
-
-                requiereRevision:
-                    false
-            };
-        }
-
-
-        return {
-
-            texto:
-                'Ese requerimiento específico necesita validación del equipo.',
-
-            requiereRevision:
-                true
-        };
-    }
-
-
-    return {
-
-        texto:
-            'Necesito un poco más de contexto para responder ese punto con precisión.',
-
-        requiereRevision:
-            false
-    };
-}
-
-
-/*
-============================================================
-EXTRAER MULTIPLES DATOS DEL MENSAJE
-============================================================
-*/
-
-function extraerDatosMensajeV2(
-    texto,
-    prospecto
-) {
-
-    const contexto =
-        asegurarContextoConversacionalV2(
-            prospecto
-        );
-
-
-    const afirmativo =
-        obtenerTextoAfirmativoV2(
-            texto
-        );
-
-
-    contexto.ultimoMensajeCliente =
-        String(texto || '')
-            .trim();
-
-
-    prospecto.actualizado =
-        new Date().toISOString();
-
-
-    /*
-    Si todo el mensaje era una pregunta,
-    no extraemos hechos.
-    */
-
-    if (!afirmativo) {
-
-        return;
-    }
-
-
-    const sobrescribir =
-        esCorreccionV2(
-            afirmativo
-        );
-
-
-    const sector =
-        detectarSectorV2(
-            afirmativo
-        );
-
-
-    if (sector) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'sector',
-            sector,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const tipoProyecto =
-        detectarTipoProyectoV2(
-            afirmativo
-        );
-
-
-    if (tipoProyecto) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'tipoProyecto',
-            tipoProyecto,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const tipoNecesidad =
-        detectarTipoNecesidadV2(
-            afirmativo
-        );
-
-
-    if (tipoNecesidad) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'tipoNecesidad',
-            tipoNecesidad,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const audiencia =
-        detectarAudienciaV2(
-            afirmativo
-        );
-
-
-    if (audiencia) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'audiencia',
-            audiencia,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const materiales =
-        detectarMaterialesV2(
-            afirmativo,
-            contexto.preguntaPendiente ===
-                'materiales'
-        );
-
-
-    if (materiales) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'materiales',
-            materiales,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const plazo =
-        detectarPlazoV2(
-            afirmativo
-        );
-
-
-    if (plazo) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'plazo',
-            plazo,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const presupuesto =
-        detectarPresupuestoV2(
-            afirmativo
-        );
-
-
-    if (presupuesto) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'presupuesto',
-            presupuesto,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const cantidad =
-        detectarCantidadV2(
-            afirmativo
-        );
-
-
-    if (cantidad) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'cantidad',
-            cantidad,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const usoFinal =
-        detectarUsoFinalV2(
-            afirmativo
-        );
-
-
-    if (usoFinal) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'usoFinal',
-            usoFinal,
-            {
-                sobrescribir
-            }
-        );
-    }
-
-
-    const frases =
-        separarSegmentosV2(
-            afirmativo
-        )
-            .filter(
-                segmento =>
-                    !segmento.esPregunta
-            )
-            .map(
-                segmento =>
-                    segmento.texto
-            );
-
-
-    for (const frase of frases) {
-
-        const limpio =
-            limpiarTextoParaReglas(
-                frase
-            );
-
-
-        if (
-            /\b(problema|dificil|dificultad|cuesta|no entienden|no entiende|no podemos|no puedo|no logro|no logran|falla|confunde|complicado)\b/.test(
-                limpio
-            )
-        ) {
-
-            guardarDatoConfirmadoV2(
-                prospecto,
-                'dolor',
-                frase,
-                {
-                    sobrescribir
-                }
+            return (
+                `Sí, trabajamos ${capacidad}.`
             );
         }
 
 
-        if (
-            /\b(quiero que|queremos que|me gustaria que|necesito que|busco que)\b/.test(
-                limpio
-            )
-        ) {
-
-            guardarDatoConfirmadoV2(
-                prospecto,
-                'beneficioEsperado',
-                frase,
-                {
-                    sobrescribir
-                }
-            );
-        }
-
-
-        if (
-            /\b(necesito|necesitamos|quiero|queremos|busco|buscamos|me gustaria)\b/.test(
-                limpio
-            )
-        ) {
-
-            guardarDatoConfirmadoV2(
-                prospecto,
-                'objetivo',
-                frase,
-                {
-                    sobrescribir
-                }
-            );
-        }
-
-
-        if (
-            /\b(por eso|esto hace que|esto provoca|nos genera|genera que|termina causando|retrasa|perdemos)\b/.test(
-                limpio
-            )
-        ) {
-
-            guardarDatoConfirmadoV2(
-                prospecto,
-                'impacto',
-                frase,
-                {
-                    sobrescribir
-                }
-            );
-        }
-    }
-
-
-    if (
-        datoVacioV2(
-            prospecto.necesidad
-        ) &&
-        afirmativo.length >= 12
-    ) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            'necesidad',
-            afirmativo,
-            {
-                sobrescribir
-            }
+        return (
+            'Ese requerimiento específico necesita validación del equipo.'
         );
     }
-}
-
-
-/*
-============================================================
-RESPUESTAS CORTAS
-============================================================
-*/
-
-function esAfirmacionV2(
-    texto
-) {
-
-    const limpio =
-        limpiarTextoParaReglas(
-            texto
-        );
-
-
-    return /^(si|dale|claro|por favor|de acuerdo|hagamoslo|okey)$/.test(
-        limpio
-    );
-}
-
-
-function esNegacionV2(
-    texto
-) {
-
-    const limpio =
-        limpiarTextoParaReglas(
-            texto
-        );
-
-
-    return /^(no|todavia no|aun no|prefiero no|no gracias)$/.test(
-        limpio
-    );
-}
-
-
-function esConfirmacionVaciaV2(
-    texto
-) {
-
-    const limpio =
-        limpiarTextoParaReglas(
-            texto
-        );
-
-
-    return /^(ok|okay|listo|vale|entendido|bien)$/.test(
-        limpio
-    );
-}
-
-
-/*
-============================================================
-PROCESAR PREGUNTA PENDIENTE
-============================================================
-*/
-
-function procesarPreguntaPendienteV2(
-    prospecto,
-    texto,
-    preguntaCliente
-) {
-
-    const contexto =
-        asegurarContextoConversacionalV2(
-            prospecto
-        );
-
-
-    const campo =
-        contexto.preguntaPendiente;
-
-
-    if (!campo) {
-
-        return {
-            accion: null
-        };
-    }
-
-
-    if (
-        campo ===
-        'confirmarRevision'
-    ) {
-
-        if (
-            esAfirmacionV2(
-                texto
-            )
-        ) {
-
-            contexto.preguntaPendiente =
-                null;
-
-
-            return {
-                accion: 'escalar'
-            };
-        }
-
-
-        if (
-            esNegacionV2(
-                texto
-            )
-        ) {
-
-            contexto.preguntaPendiente =
-                null;
-
-
-            return {
-                accion: 'no_escalar'
-            };
-        }
-
-
-        if (
-            preguntaCliente.esPregunta
-        ) {
-
-            return {
-
-                accion:
-                    'interrupcion',
-
-                campo
-            };
-        }
-
-
-        contexto.preguntaPendiente =
-            null;
-
-
-        return {
-            accion: null
-        };
-    }
-
-
-    /*
-    El cliente hizo una pregunta en lugar de responder.
-    Conservamos la pregunta pendiente.
-    */
-
-    if (
-        preguntaCliente.esPregunta
-    ) {
-
-        return {
-
-            accion:
-                'interrupcion',
-
-            campo
-        };
-    }
-
-
-    /*
-    OK / LISTO / VALE no se guardan como información.
-    */
-
-    if (
-        esConfirmacionVaciaV2(
-            texto
-        )
-    ) {
-
-        contexto.reintentos[campo] =
-            Number(
-                contexto.reintentos[campo] ||
-                0
-            ) + 1;
-
-
-        return {
-
-            accion:
-                'repetir',
-
-            campo
-        };
-    }
-
-
-    /*
-    Si la extracción ya llenó el campo,
-    limpiamos la pregunta pendiente.
-    */
-
-    if (
-        !datoVacioV2(
-            prospecto[campo]
-        )
-    ) {
-
-        contexto.preguntaPendiente =
-            null;
-
-
-        return {
-
-            accion:
-                'guardado',
-
-            campo
-        };
-    }
-
-
-    /*
-    Respuesta textual directa.
-    */
-
-    const afirmativo =
-        obtenerTextoAfirmativoV2(
-            texto
-        );
-
-
-    if (afirmativo) {
-
-        guardarDatoConfirmadoV2(
-            prospecto,
-            campo,
-            afirmativo
-        );
-
-
-        contexto.preguntaPendiente =
-            null;
-
-
-        return {
-
-            accion:
-                'guardado',
-
-            campo
-        };
-    }
-
-
-    return {
-        accion: null
-    };
-}
-
-
-/*
-============================================================
-PUNTUACION DEL CONTEXTO
-============================================================
-*/
-
-function calcularPuntuacionContextoV2(
-    prospecto
-) {
-
-    let puntos = 0;
-
-
-    if (
-        !datoVacioV2(
-            prospecto.necesidad
-        ) ||
-        !datoVacioV2(
-            prospecto.objetivo
-        )
-    ) {
-
-        puntos += 2;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.sector
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.tipoProyecto
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.dolor
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.beneficioEsperado
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.audiencia
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.materiales
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.alcance
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.plazo
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.usoFinal
-        )
-    ) {
-        puntos += 1;
-    }
-
-
-    return puntos;
-}
-
-
-/*
-============================================================
-CONTEXTO SUFICIENTE
-============================================================
-*/
-
-function contextoSuficienteV2(
-    prospecto
-) {
-
-    const tieneProposito =
-
-        !datoVacioV2(
-            prospecto.necesidad
-        ) ||
-
-        !datoVacioV2(
-            prospecto.objetivo
-        ) ||
-
-        !datoVacioV2(
-            prospecto.dolor
-        );
-
-
-    const tieneDefinicion =
-
-        !datoVacioV2(
-            prospecto.materiales
-        ) ||
-
-        !datoVacioV2(
-            prospecto.alcance
-        ) ||
-
-        !datoVacioV2(
-            prospecto.plazo
-        ) ||
-
-        !datoVacioV2(
-            prospecto.usoFinal
-        );
 
 
     return (
-        tieneProposito &&
-        tieneDefinicion &&
-        calcularPuntuacionContextoV2(
-            prospecto
-        ) >= 6
+        'Necesito un poco más de contexto para responder ese punto con precisión.'
     );
 }
 
 
 /*
-============================================================
-PRIORIDADES SEGUN CONTEXTO
-============================================================
+====================================================================
+SOLUCION PROBABLE
+====================================================================
 */
 
-function prioridadesConversacionV2(
+function inferirSolucionTrinityV4(
     prospecto
 ) {
-
-    const sector =
-        prospecto.sector;
-
 
     const tipo =
         prospecto.tipoNecesidad;
 
 
+    const sector =
+        prospecto.sector;
+
+
     if (
-        sector ===
-        'salud'
+        tipo ===
+        'inmersivo'
     ) {
 
-        return [
+        return {
 
-            'dolor',
+            nombre:
+                'una experiencia virtual o inmersiva',
 
-            'beneficioEsperado',
+            confianza:
+                0.9
+        };
+    }
 
-            'materiales',
 
-            'alcance',
+    if (
+        tipo ===
+        'simulacion'
+    ) {
 
-            'plazo'
-        ];
+        return {
+
+            nombre:
+                'una simulación digital',
+
+            confianza:
+                0.88
+        };
+    }
+
+
+    if (
+        tipo ===
+        'inteligencia_artificial'
+    ) {
+
+        return {
+
+            nombre:
+                'una solución con inteligencia artificial',
+
+            confianza:
+                0.88
+        };
+    }
+
+
+    if (
+        tipo ===
+        'visualizacion'
+    ) {
+
+        return {
+
+            nombre:
+                'visualización o renderizado 3D',
+
+            confianza:
+                0.86
+        };
+    }
+
+
+    if (
+        (
+            sector ===
+                'inmobiliario' ||
+            sector ===
+                'arquitectura'
+        ) &&
+        tipo ===
+            'presentacion'
+    ) {
+
+        return {
+
+            nombre:
+                'visualización 3D o una experiencia virtual para la presentación',
+
+            confianza:
+                0.82
+        };
     }
 
 
     if (
         sector ===
-            'arquitectura' ||
-        sector ===
-            'inmobiliario'
+            'salud' &&
+        tipo ===
+            'explicacion'
     ) {
 
-        return [
+        return {
 
-            'objetivo',
+            nombre:
+                'visualización o simulación 3D para apoyar la explicación',
 
-            'audiencia',
-
-            'materiales',
-
-            'alcance',
-
-            'plazo'
-        ];
+            confianza:
+                0.76
+        };
     }
 
 
     if (
         sector ===
-        'industria'
+            'industria' &&
+        !datoVacioV4(
+            prospecto.objetivo
+        )
     ) {
 
-        return [
+        return {
 
-            'objetivo',
+            nombre:
+                'visualización o simulación digital del proceso',
 
-            'audiencia',
-
-            'materiales',
-
-            'alcance',
-
-            'plazo'
-        ];
-    }
-
-
-    if (
-        sector ===
-        'educacion'
-    ) {
-
-        return [
-
-            'objetivo',
-
-            'audiencia',
-
-            'beneficioEsperado',
-
-            'materiales'
-        ];
-    }
-
-
-    if (
-        sector ===
-        'videojuegos'
-    ) {
-
-        return [
-
-            'objetivo',
-
-            'usoFinal',
-
-            'materiales',
-
-            'alcance',
-
-            'plazo'
-        ];
+            confianza:
+                0.72
+        };
     }
 
 
@@ -3866,229 +4416,341 @@ function prioridadesConversacionV2(
             'publicidad'
     ) {
 
-        return [
+        return {
 
-            'objetivo',
+            nombre:
+                'modelado y visualización 3D',
 
-            'audiencia',
-
-            'usoFinal',
-
-            'materiales',
-
-            'plazo'
-        ];
+            confianza:
+                0.74
+        };
     }
 
 
-    if (
-        sector ===
-        'tecnologia'
-    ) {
-
-        return [
-
-            'objetivo',
-
-            'audiencia',
-
-            'alcance',
-
-            'plazo'
-        ];
-    }
-
-
-    if (
-        tipo ===
-        'inmersivo'
-    ) {
-
-        return [
-
-            'objetivo',
-
-            'audiencia',
-
-            'usoFinal',
-
-            'materiales',
-
-            'plazo'
-        ];
-    }
-
-
-    if (
-        tipo ===
-        'explicacion'
-    ) {
-
-        return [
-
-            'dolor',
-
-            'beneficioEsperado',
-
-            'audiencia',
-
-            'materiales'
-        ];
-    }
-
-
-    return [
-
-        'objetivo',
-
-        'audiencia',
-
-        'materiales',
-
-        'alcance',
-
-        'plazo'
-    ];
+    return null;
 }
 
 
 /*
-============================================================
-DECIDIR SIGUIENTE PREGUNTA
-============================================================
+====================================================================
+PUNTUAR CONTEXTO
+====================================================================
 */
 
-function seleccionarSiguienteCampoV2(
+function puntuacionContextoV4(
     prospecto
 ) {
 
-    const contexto =
-        asegurarContextoConversacionalV2(
-            prospecto
-        );
+    let puntos =
+        0;
 
-
-    /*
-    PRIMERO comprobar si ya sabemos suficiente.
-    */
 
     if (
-        contextoSuficienteV2(
-            prospecto
+        !datoVacioV4(
+            prospecto.objetivo
         )
     ) {
-
-        return contexto
-            .preguntasRealizadas
-            .includes(
-                'confirmarRevision'
-            )
-                ? null
-                : 'confirmarRevision';
+        puntos += 2;
     }
 
-
-    /*
-    Si había una pregunta pendiente útil,
-    conservarla.
-    */
 
     if (
-        contexto.preguntaPendiente &&
-
-        contexto.preguntaPendiente !==
-            'confirmarRevision' &&
-
-        datoVacioV2(
-            prospecto[
-                contexto.preguntaPendiente
-            ]
-        ) &&
-
-        Number(
-            contexto.reintentos[
-                contexto.preguntaPendiente
-            ] ||
-            0
-        ) < 2
+        !datoVacioV4(
+            prospecto.necesidad
+        )
     ) {
-
-        return contexto
-            .preguntaPendiente;
+        puntos += 1.5;
     }
 
-
-    const prioridades =
-        prioridadesConversacionV2(
-            prospecto
-        );
-
-
-    for (
-        const campo
-        of prioridades
-    ) {
-
-        if (
-            datoVacioV2(
-                prospecto[campo]
-            ) &&
-
-            !contexto
-                .preguntasRealizadas
-                .includes(
-                    campo
-                )
-        ) {
-
-            return campo;
-        }
-    }
-
-
-    /*
-    Sector solo cuando sigue siendo ambiguo.
-    */
 
     if (
-        datoVacioV2(
+        !datoVacioV4(
+            prospecto.tipoNecesidad
+        )
+    ) {
+        puntos += 1;
+    }
+
+
+    if (
+        !datoVacioV4(
             prospecto.sector
-        ) &&
-
-        contexto.turnos >= 2 &&
-
-        !contexto
-            .preguntasRealizadas
-            .includes(
-                'sector'
-            )
+        )
     ) {
-
-        return 'sector';
+        puntos += 0.75;
     }
 
 
-    /*
-    Presupuesto NO es obligatorio.
-    */
-
-    return contexto
-        .preguntasRealizadas
-        .includes(
-            'confirmarRevision'
+    if (
+        !datoVacioV4(
+            prospecto.audiencia
         )
-            ? null
-            : 'confirmarRevision';
+    ) {
+        puntos += 1;
+    }
+
+
+    if (
+        !datoVacioV4(
+            prospecto.usoFinal
+        )
+    ) {
+        puntos += 1;
+    }
+
+
+    if (
+        !datoVacioV4(
+            prospecto.materiales
+        )
+    ) {
+        puntos += 1;
+    }
+
+
+    if (
+        !datoVacioV4(
+            prospecto.alcance
+        )
+    ) {
+        puntos += 1;
+    }
+
+
+    if (
+        !datoVacioV4(
+            prospecto.plazo
+        )
+    ) {
+        puntos += 0.5;
+    }
+
+
+    if (
+        !datoVacioV4(
+            prospecto.dolor
+        )
+    ) {
+        puntos += 0.5;
+    }
+
+
+    return puntos;
+}
+
+
+function contextoSuficienteV4(
+    prospecto
+) {
+
+    const tieneProposito =
+
+        !datoVacioV4(
+            prospecto.objetivo
+        ) ||
+
+        !datoVacioV4(
+            prospecto.necesidad
+        ) ||
+
+        !datoVacioV4(
+            prospecto.dolor
+        );
+
+
+    const tieneDefinicion =
+
+        !datoVacioV4(
+            prospecto.usoFinal
+        ) ||
+
+        !datoVacioV4(
+            prospecto.materiales
+        ) ||
+
+        !datoVacioV4(
+            prospecto.alcance
+        ) ||
+
+        !datoVacioV4(
+            prospecto.audiencia
+        );
+
+
+    return (
+        tieneProposito &&
+        tieneDefinicion &&
+        puntuacionContextoV4(
+            prospecto
+        ) >= 5.5
+    );
 }
 
 
 /*
-============================================================
-GENERAR PREGUNTA CONTEXTUAL
-============================================================
+====================================================================
+VALOR DE INFORMACION
+====================================================================
 */
 
-function preguntaParaCampoV2(
+function valorInformacionCampoV4(
+    campo,
+    prospecto
+) {
+
+    if (
+        !datoVacioV4(
+            prospecto[
+                campo
+            ]
+        )
+    ) {
+
+        return -100;
+    }
+
+
+    const sector =
+        prospecto.sector;
+
+
+    const tipo =
+        prospecto.tipoNecesidad;
+
+
+    if (
+        campo ===
+        'objetivo'
+    ) {
+
+        return 10;
+    }
+
+
+    if (
+        campo ===
+        'usoFinal'
+    ) {
+
+        return 8;
+    }
+
+
+    if (
+        campo ===
+        'audiencia'
+    ) {
+
+        if (
+            tipo ===
+                'presentacion' ||
+            tipo ===
+                'explicacion' ||
+            sector ===
+                'educacion'
+        ) {
+
+            return 8;
+        }
+
+
+        return 5;
+    }
+
+
+    if (
+        campo ===
+        'alcance'
+    ) {
+
+        return 7;
+    }
+
+
+    if (
+        campo ===
+        'materiales'
+    ) {
+
+        return 6;
+    }
+
+
+    if (
+        campo ===
+        'beneficioEsperado'
+    ) {
+
+        if (
+            tipo ===
+                'explicacion' ||
+            sector ===
+                'salud'
+        ) {
+
+            return 7;
+        }
+
+
+        return 4;
+    }
+
+
+    if (
+        campo ===
+        'dolor'
+    ) {
+
+        if (
+            tipo ===
+                'explicacion' ||
+            sector ===
+                'salud'
+        ) {
+
+            return 6;
+        }
+
+
+        return 3;
+    }
+
+
+    if (
+        campo ===
+        'sector'
+    ) {
+
+        return (
+            datoVacioV4(
+                prospecto.tipoNecesidad
+            )
+                ? 5
+                : 2
+        );
+    }
+
+
+    if (
+        campo ===
+        'plazo'
+    ) {
+
+        return 3;
+    }
+
+
+    return 1;
+}
+
+
+/*
+====================================================================
+PREGUNTAS CONTEXTUALES
+====================================================================
+*/
+
+function preguntaCampoV4(
     campo,
     prospecto
 ) {
@@ -4103,71 +4765,17 @@ function preguntaParaCampoV2(
 
     if (
         campo ===
-        'sector'
-    ) {
-
-        return '¿En qué tipo de proyecto estás trabajando?';
-    }
-
-
-    if (
-        campo ===
-        'dolor'
-    ) {
-
-        if (
-            sector ===
-            'salud'
-        ) {
-
-            return '¿Qué parte les cuesta más entender a los pacientes?';
-        }
-
-
-        if (
-            sector ===
-                'arquitectura' ||
-            sector ===
-                'inmobiliario'
-        ) {
-
-            return '¿Qué es lo más difícil de mostrar del proyecto?';
-        }
-
-
-        if (
-            sector ===
-            'industria'
-        ) {
-
-            return '¿Qué parte del proceso es más difícil de explicar?';
-        }
-
-
-        return '¿Qué es lo más difícil de resolver actualmente?';
-    }
-
-
-    if (
-        campo ===
         'objetivo'
     ) {
-
-        if (
-            tipo ===
-            'visualizacion'
-        ) {
-
-            return '¿Qué quieres que la persona comprenda al ver el resultado?';
-        }
-
 
         if (
             tipo ===
             'presentacion'
         ) {
 
-            return '¿Qué quieres que la audiencia comprenda o valore?';
+            return (
+                '¿Qué quieres que la audiencia comprenda o valore del proyecto?'
+            );
         }
 
 
@@ -4176,7 +4784,9 @@ function preguntaParaCampoV2(
             'inmersivo'
         ) {
 
-            return '¿Qué debería poder experimentar la persona?';
+            return (
+                '¿Qué debería poder experimentar la persona dentro de la solución?'
+            );
         }
 
 
@@ -4185,38 +4795,15 @@ function preguntaParaCampoV2(
             'simulacion'
         ) {
 
-            return '¿Qué necesitas mostrar del funcionamiento?';
+            return (
+                '¿Qué parte del funcionamiento necesitas representar?'
+            );
         }
 
 
-        return '¿Qué resultado quieres conseguir con el proyecto?';
-    }
-
-
-    if (
-        campo ===
-        'beneficioEsperado'
-    ) {
-
-        if (
-            sector ===
-            'salud'
-        ) {
-
-            return '¿Qué quieres que el paciente comprenda mejor?';
-        }
-
-
-        if (
-            sector ===
-            'educacion'
-        ) {
-
-            return '¿Qué quieres que los estudiantes comprendan mejor?';
-        }
-
-
-        return '¿Qué debería mejorar con el resultado final?';
+        return (
+            '¿Qué resultado quieres conseguir con el proyecto?'
+        );
     }
 
 
@@ -4225,7 +4812,9 @@ function preguntaParaCampoV2(
         'audiencia'
     ) {
 
-        return '¿Quién necesita ver, entender o usar el resultado?';
+        return (
+            '¿Quién necesita ver, entender o usar el resultado?'
+        );
     }
 
 
@@ -4234,7 +4823,9 @@ function preguntaParaCampoV2(
         'usoFinal'
     ) {
 
-        return '¿Para qué vas a utilizar el resultado final?';
+        return (
+            '¿Para qué vas a utilizar el resultado final?'
+        );
     }
 
 
@@ -4250,7 +4841,9 @@ function preguntaParaCampoV2(
                 'inmobiliario'
         ) {
 
-            return '¿Con qué material del proyecto cuentas actualmente?';
+            return (
+                '¿Con qué material del proyecto cuentas actualmente?'
+            );
         }
 
 
@@ -4259,11 +4852,15 @@ function preguntaParaCampoV2(
             'salud'
         ) {
 
-            return '¿Con qué información del procedimiento cuentas hoy?';
+            return (
+                '¿Qué información visual o técnica del procedimiento tienes disponible?'
+            );
         }
 
 
-        return '¿Con qué material o información cuentas actualmente?';
+        return (
+            '¿Con qué material o información cuentas actualmente?'
+        );
     }
 
 
@@ -4277,7 +4874,9 @@ function preguntaParaCampoV2(
             'salud'
         ) {
 
-            return '¿Cuántos procedimientos necesitas trabajar inicialmente?';
+            return (
+                '¿Qué procedimiento o parte necesitas trabajar primero?'
+            );
         }
 
 
@@ -4288,11 +4887,81 @@ function preguntaParaCampoV2(
                 'inmobiliario'
         ) {
 
-            return '¿Qué parte del proyecto necesitas desarrollar primero?';
+            return (
+                '¿Qué parte del proyecto necesitas desarrollar primero?'
+            );
         }
 
 
-        return '¿Qué necesitas incluir en una primera etapa?';
+        return (
+            '¿Qué necesitas incluir en una primera etapa?'
+        );
+    }
+
+
+    if (
+        campo ===
+        'beneficioEsperado'
+    ) {
+
+        if (
+            sector ===
+            'salud'
+        ) {
+
+            return (
+                '¿Qué quieres que el paciente comprenda mejor?'
+            );
+        }
+
+
+        return (
+            '¿Qué debería mejorar para quien use o vea el resultado?'
+        );
+    }
+
+
+    if (
+        campo ===
+        'dolor'
+    ) {
+
+        if (
+            sector ===
+            'salud'
+        ) {
+
+            return (
+                '¿Qué parte les cuesta más entender a los pacientes?'
+            );
+        }
+
+
+        if (
+            sector ===
+            'industria'
+        ) {
+
+            return (
+                '¿Qué parte del proceso es más difícil de explicar o visualizar?'
+            );
+        }
+
+
+        return (
+            '¿Qué es lo más difícil de resolver actualmente?'
+        );
+    }
+
+
+    if (
+        campo ===
+        'sector'
+    ) {
+
+        return (
+            '¿En qué tipo de proyecto estás trabajando?'
+        );
     }
 
 
@@ -4301,37 +4970,344 @@ function preguntaParaCampoV2(
         'plazo'
     ) {
 
-        return '¿Para cuándo necesitas tenerlo listo?';
+        return (
+            '¿Para cuándo necesitas tenerlo listo?'
+        );
     }
 
 
-    if (
-        campo ===
-        'confirmarRevision'
-    ) {
-
-        return 'Ya hay contexto suficiente. ¿Quieres que deje el proyecto listo para revisión del equipo?';
-    }
-
-
-    return '¿Qué otro dato del proyecto consideras importante?';
+    return (
+        '¿Qué parte del proyecto quieres definir primero?'
+    );
 }
 
 
 /*
-============================================================
-REGISTRAR PREGUNTA
-============================================================
+====================================================================
+ACCIONES CANDIDATAS
+====================================================================
 */
 
-function registrarPreguntaV2(
+function generarAccionesCandidatasV4(
+    prospecto,
+    analisis
+) {
+
+    const contexto =
+        asegurarContextoConversacionalV4(
+            prospecto
+        );
+
+
+    const acciones =
+        [];
+
+
+    if (
+        prospecto.modoAsesor ||
+        contexto.modoAsesor
+    ) {
+
+        acciones.push({
+
+            tipo:
+                'PAUSAR_BOT',
+
+            puntaje:
+                100
+        });
+
+
+        return acciones;
+    }
+
+
+    if (
+        analisis.pideAsesor
+    ) {
+
+        acciones.push({
+
+            tipo:
+                'ESCALAR_ASESOR',
+
+            puntaje:
+                100
+        });
+
+
+        return acciones;
+    }
+
+
+    if (
+        analisis.fueraFoco
+            .fueraDeFoco
+    ) {
+
+        acciones.push({
+
+            tipo:
+                'RESPONDER_FUERA_FOCO',
+
+            puntaje:
+                100
+        });
+
+
+        return acciones;
+    }
+
+
+    if (
+        analisis.pregunta.existe
+    ) {
+
+        acciones.push({
+
+            tipo:
+                'RESPONDER_PREGUNTA',
+
+            puntaje:
+                95
+        });
+
+
+        return acciones;
+    }
+
+
+    const solucion =
+        inferirSolucionTrinityV4(
+            prospecto
+        );
+
+
+    const preguntasSeguidas =
+        contarPreguntasRecientesV4(
+            prospecto
+        );
+
+
+    if (
+        solucion &&
+        solucion.confianza >= 0.76 &&
+        !contexto.recomendacionEmitida
+    ) {
+
+        acciones.push({
+
+            tipo:
+                'RECOMENDAR_SOLUCION',
+
+            puntaje:
+                9 +
+                Math.min(
+                    3,
+                    preguntasSeguidas * 1.5
+                ),
+
+            solucion
+        });
+    }
+
+
+    if (
+        contextoSuficienteV4(
+            prospecto
+        ) &&
+        !contexto.revisionOfrecida
+    ) {
+
+        acciones.push({
+
+            tipo:
+                'PROPONER_REVISION',
+
+            puntaje:
+                contexto.recomendacionEmitida
+                    ? 9
+                    : 6.5
+        });
+    }
+
+
+    const campos = [
+
+        'objetivo',
+
+        'usoFinal',
+
+        'audiencia',
+
+        'alcance',
+
+        'materiales',
+
+        'beneficioEsperado',
+
+        'dolor',
+
+        'sector',
+
+        'plazo'
+    ];
+
+
+    for (
+        const campo
+        of campos
+    ) {
+
+        let puntaje =
+            valorInformacionCampoV4(
+                campo,
+                prospecto
+            );
+
+
+        if (
+            puntaje <=
+            0
+        ) {
+
+            continue;
+        }
+
+
+        if (
+            contexto.preguntasRealizadas.includes(
+                campo
+            )
+        ) {
+
+            puntaje -=
+                3;
+        }
+
+
+        if (
+            preguntasSeguidas ===
+            1
+        ) {
+
+            puntaje -=
+                1.5;
+        }
+
+
+        if (
+            preguntasSeguidas >=
+            2
+        ) {
+
+            puntaje -=
+                5;
+        }
+
+
+        acciones.push({
+
+            tipo:
+                `PREGUNTAR_${campo.toUpperCase()}`,
+
+            campo,
+
+            puntaje
+        });
+    }
+
+
+    acciones.push({
+
+        tipo:
+            'CONTINUAR_SIN_PREGUNTA',
+
+        puntaje:
+            preguntasSeguidas >= 2
+                ? 6
+                : 1
+    });
+
+
+    return acciones;
+}
+
+
+/*
+====================================================================
+PUNTUAR Y ELEGIR
+====================================================================
+*/
+
+function puntuarAccionesV4(
+    acciones
+) {
+
+    return [
+        ...acciones
+    ].sort(
+        (
+            a,
+            b
+        ) =>
+            Number(
+                b.puntaje ||
+                0
+            ) -
+            Number(
+                a.puntaje ||
+                0
+            )
+    );
+}
+
+
+function decidirSiguienteAccionV4(
+    prospecto,
+    analisis
+) {
+
+    const acciones =
+        generarAccionesCandidatasV4(
+            prospecto,
+            analisis
+        );
+
+
+    const ordenadas =
+        puntuarAccionesV4(
+            acciones
+        );
+
+
+    return (
+        ordenadas[0] || {
+
+            tipo:
+                'CONTINUAR_SIN_PREGUNTA',
+
+            puntaje:
+                0
+        }
+    );
+}
+
+
+/*
+====================================================================
+REGISTRAR PREGUNTA
+====================================================================
+*/
+
+function registrarPreguntaV4(
     prospecto,
     campo,
     pregunta
 ) {
 
     const contexto =
-        asegurarContextoConversacionalV2(
+        asegurarContextoConversacionalV4(
             prospecto
         );
 
@@ -4358,25 +5334,32 @@ function registrarPreguntaV2(
                 campo
             );
     }
-
-
-    prospecto.actualizado =
-        new Date().toISOString();
 }
 
 
 /*
-============================================================
-ACTUALIZAR ETAPA
-============================================================
+====================================================================
+ETAPA
+====================================================================
 */
 
-function actualizarEtapaConversacionalV2(
+function actualizarEtapaV4(
     prospecto
 ) {
 
     if (
-        contextoSuficienteV2(
+        prospecto.modoAsesor
+    ) {
+
+        prospecto.etapa =
+            'handoff';
+
+        return;
+    }
+
+
+    if (
+        contextoSuficienteV4(
             prospecto
         )
     ) {
@@ -4394,54 +5377,32 @@ function actualizarEtapaConversacionalV2(
 
 
     if (
-        !datoVacioV2(
-            prospecto.plazo
-        ) ||
-
-        !datoVacioV2(
-            prospecto.presupuesto
-        )
-    ) {
-
-        prospecto.etapa =
-            'calificacion';
-
-
-        return;
-    }
-
-
-    if (
-        !datoVacioV2(
-            prospecto.materiales
-        ) ||
-
-        !datoVacioV2(
+        !datoVacioV4(
             prospecto.alcance
+        ) ||
+        !datoVacioV4(
+            prospecto.materiales
         )
     ) {
 
         prospecto.etapa =
             'alcance';
 
-
         return;
     }
 
 
     if (
-        !datoVacioV2(
+        !datoVacioV4(
             prospecto.objetivo
         ) ||
-
-        !datoVacioV2(
-            prospecto.beneficioEsperado
+        !datoVacioV4(
+            prospecto.dolor
         )
     ) {
 
         prospecto.etapa =
             'necesidad';
-
 
         return;
     }
@@ -4453,151 +5414,198 @@ function actualizarEtapaConversacionalV2(
 
 
 /*
-============================================================
-RESPUESTAS DIRECTAS V2
-============================================================
+====================================================================
+GENERADOR DE RESPUESTA
+====================================================================
 */
 
-async function procesarMensajeDirectoV2(
+async function generarRespuestaV4(
     telefono,
-    texto
+    texto,
+    prospecto,
+    analisis,
+    accion
 ) {
 
-    const prospecto =
-        obtenerProspecto(
-            telefono
-        );
-
-
     const contexto =
-        asegurarContextoConversacionalV2(
+        asegurarContextoConversacionalV4(
             prospecto
         );
 
 
-    const limpio =
-        limpiarTextoParaReglas(
-            texto
-        );
-
-
-    /*
-    Cliente solicita persona real.
-    */
-
     if (
-        clientePideAsesorV2(
-            texto
-        )
+        accion.tipo ===
+        'PAUSAR_BOT'
     ) {
 
-        prospecto.necesitaAsesor =
-            true;
+        return (
+            'Tu conversación ya está en revisión por el equipo de Trinity 3D.'
+        );
+    }
 
 
-        await notificarAsesor(
+    if (
+        accion.tipo ===
+        'ESCALAR_ASESOR'
+    ) {
+
+        await escalarAsesorV4(
             telefono,
             texto,
             'El cliente solicito atencion humana'
         );
 
 
-        return 'Voy a dejar tu conversación para atención del equipo de Trinity 3D.';
-    }
-
-
-    /*
-    Saludo.
-    */
-
-    if (
-        /^(hola|holi|buenas|buenos dias|buenas tardes|buenas noches|hey|hello)[\s!.,¿?]*$/.test(
-            limpio
-        )
-    ) {
-
-        const yaExisteContexto =
-
-            !datoVacioV2(
-                prospecto.necesidad
-            ) ||
-
-            !datoVacioV2(
-                prospecto.objetivo
-            ) ||
-
-            contexto.turnos > 0;
-
-
-        return yaExisteContexto
-
-            ? 'Hola. Podemos continuar con tu proyecto cuando quieras.'
-
-            : 'Hola, ¿en qué proyecto o idea estás trabajando?';
-    }
-
-
-    /*
-    Gracias.
-    */
-
-    if (
-        /^(gracias|muchas gracias|mil gracias|gracias trinity)[\s!.,]*$/.test(
-            limpio
-        )
-    ) {
-
-        return 'Con gusto.';
-    }
-
-
-    /*
-    Despedidas.
-    */
-
-    if (
-        /^(adios|hasta luego|nos vemos|chao|chau|hasta pronto)[\s!.,]*$/.test(
-            limpio
-        )
-    ) {
-
-        return 'Gracias por escribir a Trinity 3D. Hasta pronto.';
-    }
-
-
-    /*
-    Si BazaarLink ya dio 429 recientemente,
-    no lo volvemos a consultar en cada mensaje.
-    */
-
-    if (
-        contexto.modoFallback ===
-            true &&
-
-        Number(
-            contexto.proximoIntentoIA ||
-            0
-        ) > Date.now()
-    ) {
-
-        return await procesarConversacionFallbackV2(
-            telefono,
-            texto
+        return (
+            'Dejo tu conversación para atención del equipo de Trinity 3D.'
         );
     }
 
 
-    return null;
+    if (
+        accion.tipo ===
+        'RESPONDER_FUERA_FOCO'
+    ) {
+
+        return (
+            'La impresión 3D física no es nuestro foco principal; Trinity trabaja principalmente soluciones digitales 3D.'
+        );
+    }
+
+
+    if (
+        accion.tipo ===
+        'RESPONDER_PREGUNTA'
+    ) {
+
+        return (
+            responderPreguntaDirectaV4(
+                analisis
+            ) ||
+            'Necesito un poco más de contexto para responder ese punto.'
+        );
+    }
+
+
+    if (
+        accion.tipo ===
+        'RECOMENDAR_SOLUCION'
+    ) {
+
+        contexto.recomendacionEmitida =
+            true;
+
+
+        contexto.solucionSugerida =
+            accion.solucion.nombre;
+
+
+        prospecto.solucionTrinity =
+            accion.solucion.nombre;
+
+
+        return (
+            `Tiene sentido evaluar ${accion.solucion.nombre} para este caso.`
+        );
+    }
+
+
+    if (
+        accion.tipo ===
+        'PROPONER_REVISION'
+    ) {
+
+        contexto.revisionOfrecida =
+            true;
+
+
+        const pregunta =
+            '¿Quieres que deje este contexto listo para revisión del equipo?';
+
+
+        registrarPreguntaV4(
+            prospecto,
+            'confirmarRevision',
+            pregunta
+        );
+
+
+        return (
+            'Ya hay suficiente contexto. ¿Quieres que lo deje para revisión del equipo?'
+        );
+    }
+
+
+    if (
+        accion.tipo.startsWith(
+            'PREGUNTAR_'
+        )
+    ) {
+
+        const campo =
+            accion.campo;
+
+
+        const pregunta =
+            preguntaCampoV4(
+                campo,
+                prospecto
+            );
+
+
+        registrarPreguntaV4(
+            prospecto,
+            campo,
+            pregunta
+        );
+
+
+        return pregunta;
+    }
+
+
+    if (
+        accion.tipo ===
+        'CONTINUAR_SIN_PREGUNTA'
+    ) {
+
+        const solucion =
+            inferirSolucionTrinityV4(
+                prospecto
+            );
+
+
+        if (
+            solucion &&
+            solucion.confianza >=
+                0.7
+        ) {
+
+            return (
+                `Con lo que ya tenemos, ${solucion.nombre} es una línea razonable para evaluar.`
+            );
+        }
+
+
+        return (
+            'Ya tengo mejor contexto del proyecto; puedes contarme el punto que quieras definir ahora.'
+        );
+    }
+
+
+    return (
+        'Puedes contarme qué parte del proyecto quieres definir ahora.'
+    );
 }
 
 
 /*
-============================================================
-MOTOR PRINCIPAL FALLBACK
-============================================================
+====================================================================
+MOTOR FALLBACK V4
+====================================================================
 */
 
-async function procesarConversacionFallbackV2(
+async function procesarConversacionFallbackV4(
     telefono,
     texto
 ) {
@@ -4609,7 +5617,7 @@ async function procesarConversacionFallbackV2(
 
 
     const contexto =
-        asegurarContextoConversacionalV2(
+        asegurarContextoConversacionalV4(
             prospecto
         );
 
@@ -4631,286 +5639,418 @@ async function procesarConversacionFallbackV2(
 
 
     /*
-    PRIMERO analizar si pregunta.
-    */
-
-    const preguntaCliente =
-        analizarPreguntaClienteV2(
-            texto
-        );
-
-
-    /*
-    EXTRAER SOLO AFIRMACIONES.
-    Las preguntas no se convierten en hechos.
-    */
-
-    extraerDatosMensajeV2(
-        texto,
-        prospecto
-    );
-
-
-    /*
-    Revisar pregunta pendiente.
-    */
-
-    const resultadoPendiente =
-        procesarPreguntaPendienteV2(
-
-            prospecto,
-
-            texto,
-
-            preguntaCliente
-        );
-
-
-    /*
-    Cliente confirmó pasar al equipo.
+    Modo asesor detiene el embudo.
     */
 
     if (
-        resultadoPendiente.accion ===
-        'escalar'
+        prospecto.modoAsesor ||
+        contexto.modoAsesor
     ) {
 
-        prospecto.necesitaAsesor =
-            true;
+        const accion = {
+
+            tipo:
+                'PAUSAR_BOT',
+
+            puntaje:
+                100
+        };
 
 
-        prospecto.etapa =
-            'cierre';
+        registrarAccionV4(
+            prospecto,
+            accion
+        );
 
 
-        await notificarAsesor(
+        return generarRespuestaV4(
+            telefono,
+            texto,
+            prospecto,
+            {
+
+                pregunta: {
+
+                    existe:
+                        false
+                }
+            },
+            accion
+        );
+    }
+
+
+    const analisis =
+        analizarMensajeClienteV4(
+            texto,
+            prospecto
+        );
+
+
+    if (
+        analisis.reset
+    ) {
+
+        reiniciarConversacionV4(
+            telefono
+        );
+
+
+        return (
+            'Conversación reiniciada. ¿En qué proyecto o idea estás trabajando?'
+        );
+    }
+
+
+    if (
+        analisis.pideAsesor
+    ) {
+
+        await escalarAsesorV4(
+            telefono,
+            texto,
+            'El cliente solicito atencion humana'
+        );
+
+
+        return (
+            'Dejo tu conversación para atención del equipo de Trinity 3D.'
+        );
+    }
+
+
+    /*
+    Resolver respuesta a una pregunta previa.
+    */
+
+    const pendiente =
+        resolverPreguntaPendienteV4(
+            prospecto,
+            texto,
+            analisis
+        );
+
+
+    if (
+        pendiente.accion ===
+        'ESCALAR'
+    ) {
+
+        await escalarAsesorV4(
             telefono,
             texto,
             'Cliente confirmo revision del proyecto'
         );
 
 
-        return 'Listo. Dejo el proyecto para revisión del equipo de Trinity 3D.';
+        return (
+            'Listo. Dejo el proyecto para revisión del equipo de Trinity 3D.'
+        );
     }
 
-
-    /*
-    No desea escalar.
-    */
 
     if (
-        resultadoPendiente.accion ===
-        'no_escalar'
+        pendiente.accion ===
+        'NO_ESCALAR'
     ) {
 
-        prospecto.necesitaAsesor =
-            false;
-
-
-        return 'Puedes seguir contándome qué quieres ajustar o aclarar del proyecto.';
+        return (
+            'Puedes seguir definiendo el proyecto aquí cuando quieras.'
+        );
     }
 
 
     /*
-    Actualizar etapa después de interpretar mensaje.
+    Actualizar todos los hechos independientes
+    encontrados en el mensaje.
     */
 
-    actualizarEtapaConversacionalV2(
+    actualizarProspectoV4(
+        prospecto,
+        analisis
+    );
+
+
+    actualizarEtapaV4(
         prospecto
     );
 
 
     /*
-    Responder preguntas directas.
+    Elegir la acción con mayor utilidad.
     */
 
-    const respuestaDirecta =
-        responderPreguntaDirectaV2(
+    const accion =
+        decidirSiguienteAccionV4(
+            prospecto,
+            analisis
+        );
+
+
+    const respuesta =
+        await generarRespuestaV4(
+            telefono,
+            texto,
+            prospecto,
+            analisis,
+            accion
+        );
+
+
+    registrarAccionV4(
+        prospecto,
+        accion
+    );
+
+
+    contexto.ultimaRespuestaTrinity =
+        respuesta;
+
+
+    prospecto.actualizado =
+        new Date()
+            .toISOString();
+
+
+    console.log(
+        'V4 accion:',
+        accion.tipo,
+        'puntaje:',
+        accion.puntaje
+    );
+
+
+    console.log(
+        'V4 estado:',
+        JSON.stringify(
+            prospecto,
+            null,
+            2
+        )
+    );
+
+
+    return respuesta;
+}
+
+
+/*
+====================================================================
+MENSAJES DIRECTOS V4
+====================================================================
+*/
+
+async function procesarMensajeDirectoV4(
+    telefono,
+    texto
+) {
+
+    /*
+    Reset siempre tiene prioridad,
+    incluso si estaba en modo asesor.
+    */
+
+    if (
+        esComandoResetV4(
+            texto
+        )
+    ) {
+
+        reiniciarConversacionV4(
+            telefono
+        );
+
+
+        return (
+            'Conversación reiniciada. ¿En qué proyecto o idea estás trabajando?'
+        );
+    }
+
+
+    const prospecto =
+        obtenerProspecto(
+            telefono
+        );
+
+
+    const contexto =
+        asegurarContextoConversacionalV4(
+            prospecto
+        );
+
+
+    const limpio =
+        textoReglasV4(
             texto
         );
 
 
     /*
-    Requerimiento no confirmado como capacidad.
+    Cliente solicita humano.
     */
 
     if (
-        respuestaDirecta.requiereRevision ===
-        true
+        clientePideAsesorV4(
+            texto
+        )
     ) {
 
-        const preguntaRevision =
-            '¿Quieres que lo deje para revisión del equipo?';
-
-
-        registrarPreguntaV2(
-            prospecto,
-            'confirmarRevision',
-            preguntaRevision
+        await escalarAsesorV4(
+            telefono,
+            texto,
+            'El cliente solicito atencion humana'
         );
-
-
-        const combinada =
-            `${respuestaDirecta.texto} ${preguntaRevision}`;
 
 
         return (
-            combinada.length <= 160
-                ? combinada
-                : respuestaDirecta.texto
+            'Dejo tu conversación para atención del equipo de Trinity 3D.'
         );
     }
 
 
     /*
-    El cliente interrumpió el flujo con una pregunta.
-
-    Responderla primero.
-
-    Si la pregunta anterior cabe, retomarla.
+    Si ya hubo handoff no volver al embudo.
     */
 
     if (
-        preguntaCliente.esPregunta &&
-        respuestaDirecta.texto
+        prospecto.modoAsesor ||
+        contexto.modoAsesor
     ) {
 
-        const pendiente =
-            contexto.preguntaPendiente;
-
-
-        if (
-            pendiente &&
-
-            pendiente !==
-                'confirmarRevision' &&
-
-            datoVacioV2(
-                prospecto[pendiente]
-            ) &&
-
-            contexto.ultimaPregunta
-        ) {
-
-            const combinada =
-                `${respuestaDirecta.texto} ${contexto.ultimaPregunta}`;
-
-
-            if (
-                combinada.length <=
-                160
-            ) {
-
-                return combinada;
-            }
-        }
-
-
-        return respuestaDirecta.texto;
+        return (
+            'Tu conversación ya está en revisión por el equipo de Trinity 3D.'
+        );
     }
 
 
     /*
-    El cliente respondió solamente OK/Listo/etc.
+    Fuera de foco:
+    detener antes de IA y antes del embudo.
+    */
+
+    const fueraFoco =
+        detectarSolicitudFueraDeFocoV4(
+            texto
+        );
+
+
+    if (
+        fueraFoco.fueraDeFoco
+    ) {
+
+        return (
+            'La impresión 3D física no es nuestro foco principal; Trinity trabaja principalmente soluciones digitales 3D.'
+        );
+    }
+
+
+    /*
+    Saludo.
     */
 
     if (
-        resultadoPendiente.accion ===
-        'repetir'
+        /^(hola|holi|buenas|buenos dias|buenas tardes|buenas noches|hey|hello)[\s!.,¿?]*$/.test(
+            limpio
+        )
     ) {
 
-        const campo =
-            resultadoPendiente.campo;
+        const tieneContexto =
+
+            !datoVacioV4(
+                prospecto.objetivo
+            ) ||
+
+            !datoVacioV4(
+                prospecto.necesidad
+            ) ||
+
+            contexto.turnos > 0;
 
 
         if (
-            Number(
-                contexto.reintentos[campo] ||
-                0
-            ) <= 1
+            tieneContexto
         ) {
 
-            return preguntaParaCampoV2(
-                campo,
-                prospecto
+            return (
+                'Hola. Podemos continuar con el proyecto cuando quieras.'
             );
         }
 
 
-        contexto.preguntaPendiente =
-            null;
-    }
-
-
-    /*
-    Elegir siguiente dato realmente útil.
-    */
-
-    const siguienteCampo =
-        seleccionarSiguienteCampoV2(
-            prospecto
-        );
-
-
-    /*
-    No hace falta seguir preguntando.
-    */
-
-    if (!siguienteCampo) {
-
         return (
-            respuestaDirecta.texto ||
-            'Ya tengo suficiente contexto del proyecto.'
+            'Hola, ¿en qué proyecto o idea estás trabajando?'
         );
     }
 
 
-    const siguientePregunta =
-        preguntaParaCampoV2(
-            siguienteCampo,
-            prospecto
-        );
-
-
-    registrarPreguntaV2(
-        prospecto,
-        siguienteCampo,
-        siguientePregunta
-    );
-
-
     /*
-    Respuesta + pregunta solo si cabe naturalmente.
+    Gracias.
     */
 
     if (
-        respuestaDirecta.texto
+        /^(gracias|muchas gracias|mil gracias|gracias trinity)[\s!.,]*$/.test(
+            limpio
+        )
     ) {
 
-        const combinada =
-            `${respuestaDirecta.texto} ${siguientePregunta}`;
-
-
         return (
-            combinada.length <=
-            160
-                ? combinada
-                : respuestaDirecta.texto
+            'Con gusto.'
         );
     }
 
 
-    return siguientePregunta;
+    /*
+    Despedida.
+    */
+
+    if (
+        /^(adios|hasta luego|nos vemos|chao|chau|hasta pronto)[\s!.,]*$/.test(
+            limpio
+        )
+    ) {
+
+        return (
+            'Gracias por escribir a Trinity 3D. Hasta pronto.'
+        );
+    }
+
+
+    /*
+    Cuando BazaarLink ya dio 429,
+    usar V4 directamente durante el periodo de cooldown.
+    */
+
+    if (
+        contexto.modoFallback ===
+            true &&
+        Number(
+            contexto.proximoIntentoIA ||
+            0
+        ) > Date.now()
+    ) {
+
+        return await procesarConversacionFallbackV4(
+            telefono,
+            texto
+        );
+    }
+
+
+    /*
+    BazaarLink puede intentarse normalmente.
+    */
+
+    return null;
 }
 
 
 /*
-============================================================
-REGISTRAR RESPUESTA FALLBACK EN HISTORIAL
-============================================================
+====================================================================
+HISTORIAL FALLBACK
+====================================================================
 */
 
-function registrarRespuestaFallbackHistorialV2(
+function registrarRespuestaFallbackHistorialV4(
     telefono,
     respuesta
 ) {
@@ -4919,10 +6059,6 @@ function registrarRespuestaFallbackHistorialV2(
         return;
     }
 
-
-    /*
-    Proyecto actual con Map.
-    */
 
     if (
         conversaciones instanceof Map
@@ -4955,10 +6091,8 @@ function registrarRespuestaFallbackHistorialV2(
 
         if (
             !ultimo ||
-
             ultimo.role !==
                 'assistant' ||
-
             ultimo.content !==
                 respuesta
         ) {
@@ -4989,10 +6123,6 @@ function registrarRespuestaFallbackHistorialV2(
         return;
     }
 
-
-    /*
-    Compatibilidad si conversaciones cambia a objeto.
-    */
 
     if (
         conversaciones &&
@@ -5027,7 +6157,8 @@ function registrarRespuestaFallbackHistorialV2(
         if (
             conversaciones[
                 telefono
-            ].length > 12
+            ].length >
+            12
         ) {
 
             conversaciones[
@@ -5035,7 +6166,9 @@ function registrarRespuestaFallbackHistorialV2(
             ] =
                 conversaciones[
                     telefono
-                ].slice(-12);
+                ].slice(
+                    -12
+                );
         }
     }
 }
@@ -5043,7 +6176,7 @@ function registrarRespuestaFallbackHistorialV2(
 async function manejarLimiteIA(telefono, texto) {
 
     console.log(
-        `BazaarLink sin cuota para ${telefono}. Activando Motor Conversacional V2.`
+        `BazaarLink sin cuota para ${telefono}. Activando Motor Conversacional V4.`
     );
 
 
@@ -5054,14 +6187,14 @@ async function manejarLimiteIA(telefono, texto) {
 
 
     const contexto =
-        asegurarContextoConversacionalV2(
+        asegurarContextoConversacionalV4(
             prospecto
         );
 
 
     /*
-    Durante una hora usamos el motor local
-    y evitamos golpear BazaarLink en cada mensaje.
+    Evitar llamar nuevamente a BazaarLink en cada turno
+    después de un 429.
     */
 
     contexto.modoFallback =
@@ -5080,7 +6213,7 @@ async function manejarLimiteIA(telefono, texto) {
     try {
 
         let respuesta =
-            await procesarConversacionFallbackV2(
+            await procesarConversacionFallbackV4(
                 telefono,
                 texto
             );
@@ -5095,12 +6228,12 @@ async function manejarLimiteIA(telefono, texto) {
         if (!respuesta) {
 
             throw new Error(
-                'El Motor Conversacional V2 genero una respuesta vacia'
+                'Motor Conversacional V4 genero respuesta vacia'
             );
         }
 
 
-        registrarRespuestaFallbackHistorialV2(
+        registrarRespuestaFallbackHistorialV4(
             telefono,
             respuesta
         );
@@ -5111,17 +6244,7 @@ async function manejarLimiteIA(telefono, texto) {
 
 
         console.log(
-            `Fallback V2 ${telefono}: ${respuesta}`
-        );
-
-
-        console.log(
-            'Estado comercial:',
-            JSON.stringify(
-                prospecto,
-                null,
-                2
-            )
+            `Fallback V4 ${telefono}: ${respuesta}`
         );
 
 
@@ -5131,7 +6254,7 @@ async function manejarLimiteIA(telefono, texto) {
     } catch (error) {
 
         console.error(
-            'ERROR MOTOR CONVERSACIONAL V2:',
+            'ERROR MOTOR CONVERSACIONAL V4:',
             error.message
         );
 
@@ -5153,7 +6276,9 @@ async function manejarLimiteIA(telefono, texto) {
         }
 
 
-        return 'No pude procesar correctamente el mensaje. Voy a dejarlo para revisión del equipo.';
+        return (
+            'No pude procesar correctamente el mensaje. Lo dejo para revisión del equipo.'
+        );
     }
 }
 
@@ -5287,7 +6412,7 @@ async function obtenerRespuestaIA(telefono, texto) {
 
 
     const respuestaDirecta =
-        await procesarMensajeDirectoV2(
+        await procesarMensajeDirectoV4(
             usuarioDirecto,
             texto
         );
