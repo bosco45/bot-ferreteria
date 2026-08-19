@@ -774,6 +774,351 @@ Cuando ya tengas suficiente informacion para que el equipo comercial evalúe el 
 "listoParaComercial": true
 `;
 
+/*
+============================================================
+RESPUESTAS DIRECTAS SIN IA
+============================================================
+
+Objetivo:
+
+- No gastar cuota de BazaarLink en mensajes simples.
+- Responder saludos directamente.
+- Responder agradecimientos directamente.
+- Responder despedidas directamente.
+- Detectar solicitudes de asesor sin depender de la IA.
+- Escalar al equipo cuando BazaarLink llegue al limite gratuito.
+*/
+
+
+function limpiarTextoParaReglas(texto) {
+
+    return String(texto || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
+}
+
+
+/*
+============================================================
+CREAR RESUMEN INTERNO PARA EL ASESOR
+============================================================
+*/
+
+function crearResumenParaAsesor(telefono, ultimoMensaje, motivo) {
+
+    const prospecto = obtenerProspecto(telefono);
+
+    const lineas = [
+        'TRINITY 3D - SOLICITUD DE ASESOR',
+        '',
+        `Cliente: ${telefono}`,
+        `Motivo: ${motivo || 'Solicitud de atencion humana'}`,
+        '',
+        `Ultimo mensaje: ${ultimoMensaje || 'Sin mensaje'}`,
+        '',
+        `Sector: ${prospecto.sector || 'Sin definir'}`,
+        `Necesidad: ${prospecto.necesidad || 'Sin definir'}`,
+        `Dolor: ${prospecto.dolor || 'Sin definir'}`,
+        `Impacto: ${prospecto.impacto || 'Sin definir'}`,
+        `Beneficio esperado: ${prospecto.beneficioEsperado || 'Sin definir'}`,
+        `Solucion Trinity: ${prospecto.solucionTrinity || 'Sin definir'}`,
+        `Objetivo: ${prospecto.objetivo || 'Sin definir'}`,
+        `Materiales: ${prospecto.materiales || 'Sin definir'}`,
+        `Alcance: ${prospecto.alcance || 'Sin definir'}`,
+        `Plazo: ${prospecto.plazo || 'Sin definir'}`,
+        `Presupuesto: ${prospecto.presupuesto || 'Sin definir'}`
+    ];
+
+    return lineas.join('\n');
+}
+
+
+/*
+============================================================
+NOTIFICAR AL ASESOR
+============================================================
+*/
+
+async function notificarAsesor(
+    telefono,
+    ultimoMensaje,
+    motivo = 'Solicitud de atencion humana'
+) {
+
+    const prospecto = obtenerProspecto(telefono);
+
+    prospecto.necesitaAsesor = true;
+    prospecto.actualizado = new Date().toISOString();
+
+    /*
+    Evitar notificar varias veces el mismo caso
+    durante la misma ejecucion del servidor.
+    */
+
+    if (prospecto.asesorNotificado === true) {
+
+        console.log(
+            `Asesor ya notificado anteriormente para ${telefono}`
+        );
+
+        return;
+    }
+
+
+    /*
+    Si no existe numero configurado de asesor,
+    simplemente dejamos marcado el prospecto.
+    */
+
+    if (!ASESOR_PHONE) {
+
+        console.log(
+            `ASESOR_PHONE no esta configurado. Prospecto marcado: ${telefono}`
+        );
+
+        return;
+    }
+
+
+    /*
+    Evitar enviarse una notificacion a si mismo.
+    Esto tambien ayuda durante pruebas.
+    */
+
+    if (String(ASESOR_PHONE) === String(telefono)) {
+
+        console.log(
+            `El cliente ${telefono} coincide con ASESOR_PHONE. No se envia auto-notificacion.`
+        );
+
+        return;
+    }
+
+
+    const resumen = crearResumenParaAsesor(
+        telefono,
+        ultimoMensaje,
+        motivo
+    );
+
+
+    try {
+
+        await enviarMensajeWhatsApp(
+            ASESOR_PHONE,
+            resumen
+        );
+
+        prospecto.asesorNotificado = true;
+
+        console.log(
+            `Asesor notificado por el prospecto ${telefono}`
+        );
+
+    } catch (error) {
+
+        console.error(
+            'No fue posible notificar al asesor:',
+            error.response?.data || error.message
+        );
+    }
+}
+
+
+/*
+============================================================
+DETECTAR SOLICITUD DE PERSONA / ASESOR
+============================================================
+*/
+
+function clientePideAsesor(texto) {
+
+    const limpio = limpiarTextoParaReglas(texto);
+
+    const expresiones = [
+
+        /\basesor\b/,
+        /\basesora\b/,
+        /\bhumano\b/,
+        /\bpersona real\b/,
+
+        /quiero hablar con una persona/,
+        /quiero hablar con alguien/,
+        /quiero hablar con un asesor/,
+        /quiero hablar con una asesora/,
+
+        /hablar con una persona/,
+        /hablar con alguien/,
+        /hablar con un asesor/,
+
+        /pasame con una persona/,
+        /pasame con alguien/,
+        /pasame con un asesor/,
+        /pasame con el asesor/,
+
+        /comunicarme con una persona/,
+        /comunicarme con un asesor/,
+
+        /quiero hablar con el equipo/,
+        /hablar con el equipo/,
+
+        /quiero hablar con el dueno/,
+        /hablar con el dueno/
+    ];
+
+
+    return expresiones.some(
+        expresion => expresion.test(limpio)
+    );
+}
+
+
+/*
+============================================================
+RESPONDER MENSAJES SIMPLES SIN BAZAARLINK
+============================================================
+*/
+
+async function procesarMensajeDirecto(telefono, texto) {
+
+    const limpio = limpiarTextoParaReglas(texto);
+
+
+    /*
+    --------------------------------------------------------
+    1. SOLICITUD DE ASESOR
+    --------------------------------------------------------
+    */
+
+    if (clientePideAsesor(texto)) {
+
+        await notificarAsesor(
+            telefono,
+            texto,
+            'El cliente solicito hablar con una persona'
+        );
+
+        return 'Voy a pasar tu conversación al equipo de Trinity 3D para revisión.';
+    }
+
+
+    /*
+    --------------------------------------------------------
+    2. SALUDOS
+    --------------------------------------------------------
+    */
+
+    const esSaludo =
+        /^(hola|holi|buenas|buenos dias|buenas tardes|buenas noches|hey|hello)[\s!.,¿?]*$/.test(
+            limpio
+        );
+
+
+    if (esSaludo) {
+
+        return 'Hola, ¿en qué proyecto o idea estás trabajando?';
+    }
+
+
+    /*
+    --------------------------------------------------------
+    3. AGRADECIMIENTOS
+    --------------------------------------------------------
+    */
+
+    const esAgradecimiento =
+        /^(gracias|muchas gracias|mil gracias|gracias trinity|ok gracias|listo gracias)[\s!.,]*$/.test(
+            limpio
+        );
+
+
+    if (esAgradecimiento) {
+
+        return 'Con gusto.';
+    }
+
+
+    /*
+    --------------------------------------------------------
+    4. CONFIRMACIONES SIMPLES
+    --------------------------------------------------------
+
+    No incluimos "si" o "no", porque esas respuestas dependen
+    del contexto de la conversacion y deben ser interpretadas.
+    */
+
+    const esConfirmacionSimple =
+        /^(ok|okay|listo|vale|de acuerdo|entendido)[\s!.,]*$/.test(
+            limpio
+        );
+
+
+    if (esConfirmacionSimple) {
+
+        return 'Listo.';
+    }
+
+
+    /*
+    --------------------------------------------------------
+    5. DESPEDIDAS
+    --------------------------------------------------------
+    */
+
+    const esDespedida =
+        /^(adios|hasta luego|nos vemos|chao|chau|hasta pronto)[\s!.,]*$/.test(
+            limpio
+        );
+
+
+    if (esDespedida) {
+
+        return 'Gracias por escribir a Trinity 3D. Hasta pronto.';
+    }
+
+
+    /*
+    Si retorna null significa:
+    este mensaje SI necesita interpretacion.
+    */
+
+    return null;
+}
+
+
+/*
+============================================================
+MANEJO ESPECIAL DEL ERROR 429
+============================================================
+
+Cuando BazaarLink agota la cuota gratuita:
+
+- No mentimos diciendo simplemente que existe una demora.
+- Marcamos el prospecto para asesor.
+- Intentamos notificar al equipo.
+- Damos una respuesta corta al cliente.
+*/
+
+async function manejarLimiteIA(telefono, texto) {
+
+    const prospecto = obtenerProspecto(telefono);
+
+    prospecto.necesitaAsesor = true;
+    prospecto.actualizado = new Date().toISOString();
+
+
+    await notificarAsesor(
+        telefono,
+        texto,
+        'Limite gratuito de IA alcanzado durante la conversacion'
+    );
+
+
+    return 'Voy a pasar tu solicitud al equipo de Trinity 3D para que puedan revisarla.';
+}
+
 function normalizarRespuestaWhatsApp(texto, maxCaracteres = 160) {
 
     if (!texto) {
@@ -892,6 +1237,84 @@ function normalizarRespuestaWhatsApp(texto, maxCaracteres = 160) {
 }
 
 async function obtenerRespuestaIA(telefono, texto) {
+
+    /*
+    ========================================================
+    PRIMER FILTRO: RESPONDER SIN IA CUANDO SEA POSIBLE
+    ========================================================
+    */
+
+    const usuarioDirecto =
+        telefono || 'prueba-local';
+
+
+    const respuestaDirecta =
+        await procesarMensajeDirecto(
+            usuarioDirecto,
+            texto
+        );
+
+
+    if (respuestaDirecta) {
+
+        /*
+        Guardar tambien estos mensajes en el historial
+        para mantener continuidad.
+        */
+
+        if (!conversaciones.has(usuarioDirecto)) {
+
+            conversaciones.set(
+                usuarioDirecto,
+                []
+            );
+        }
+
+
+        const historialDirecto =
+            conversaciones.get(usuarioDirecto);
+
+
+        historialDirecto.push({
+            role: 'user',
+            content: texto
+        });
+
+
+        const respuestaFinalDirecta =
+            normalizarRespuestaWhatsApp(
+                respuestaDirecta
+            );
+
+
+        historialDirecto.push({
+            role: 'assistant',
+            content: respuestaFinalDirecta
+        });
+
+
+        /*
+        Limitar memoria reciente.
+        */
+
+        if (historialDirecto.length > 10) {
+
+            historialDirecto.splice(
+                0,
+                historialDirecto.length - 10
+            );
+        }
+
+
+        console.log(
+            `Respuesta directa sin IA para ${usuarioDirecto}: ${respuestaFinalDirecta}`
+        );
+
+
+        return respuestaFinalDirecta;
+    }
+
+
     const usuario = telefono || 'prueba-local';
     const prospecto = obtenerProspecto(usuario);
 
@@ -1048,7 +1471,29 @@ async function obtenerRespuestaIA(telefono, texto) {
 
         console.error('================================');
 
-        return 'En este momento estoy teniendo una demora para procesar tu solicitud. Puedes intentarlo nuevamente en unos segundos.';
+        /*
+        BazaarLink puede responder HTTP 429 cuando se agota
+        la cuota gratuita diaria.
+        */
+
+        if (error.response?.status === 429) {
+
+            console.log(
+                'Limite gratuito de BazaarLink alcanzado. Activando escalamiento.'
+            );
+
+            return await manejarLimiteIA(
+                usuario,
+                texto
+            );
+        }
+
+
+        /*
+        Otros errores distintos de 429.
+        */
+
+        return 'En este momento no puedo procesar tu solicitud. Intenta nuevamente en unos minutos.';
     }
 }
 
@@ -1215,6 +1660,7 @@ app.listen(PORT, () => {
     console.log('========================================');
     console.log('');
 });
+
 
 
 
