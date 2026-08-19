@@ -14,8 +14,9 @@ const {
     WHATSAPP_PHONE_ID = '1222698170925154',
     WHATSAPP_API_VERSION = 'v25.0',
     VERIFY_TOKEN = 'trinity3d_bot_2024',
-    OLLAMA_URL = 'http://localhost:11434',
-    OLLAMA_MODEL = 'qwen3:4b',
+    BAZAARLINK_BASE_URL = 'https://api.bazaarlink.ai/v1',
+    BAZAARLINK_MODEL = 'auto:free',
+    BAZAARLINK_API_KEY,
     ASESOR_PHONE = process.env.ASESOR_PHONE,
     PORT = 3000
 } = process.env;
@@ -328,13 +329,13 @@ async function obtenerRespuestaIA(telefono, texto) {
     }
 
     try {
-        console.log(`Consultando Ollama ${OLLAMA_MODEL}...`);
+        console.log(`Consultando BazaarLink ${BAZAARLINK_MODEL}...`);
         const inicio = Date.now();
 
         const response = await axios.post(
-            `${OLLAMA_URL}/api/chat`,
+            `${BAZAARLINK_BASE_URL}/chat/completions`,
             {
-                model: OLLAMA_MODEL,
+                model: BAZAARLINK_MODEL,
                 messages: [
                     {
                         role: 'system',
@@ -343,23 +344,21 @@ async function obtenerRespuestaIA(telefono, texto) {
                     ...historial
                 ],
                 stream: false,
-                think: true,
-                keep_alive: '30m',
-                options: {
-                    temperature: 0.4,
-                    num_predict: 1600,
-                    num_ctx: 4096
-                }
+                temperature: 0.4,
+                max_tokens: 1600
             },
             {
-                // Damos margen al modelo local
+                headers: {
+                    Authorization: `Bearer ${BAZAARLINK_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
                 timeout: 300000
             }
         );
 
         console.log(`Ollama terminó en ${((Date.now() - inicio) / 1000).toFixed(1)} segundos`);
 
-        let contenido = response.data?.message?.content || '';
+        let contenido = response.data?.choices?.[0]?.message?.content || '';
 
         // Limpiar posibles bloques de razonamiento
         contenido = contenido
@@ -378,7 +377,7 @@ async function obtenerRespuestaIA(telefono, texto) {
             .trim();
 
         if (!contenido) {
-            throw new Error('Ollama devolvio una respuesta vacia');
+            throw new Error('BazaarLink devolvio una respuesta vacia');
         }
 
         let respuesta = contenido;
@@ -423,7 +422,7 @@ async function obtenerRespuestaIA(telefono, texto) {
 
         } catch (errorJson) {
             console.log(
-                'Ollama no devolvio JSON valido. Se utilizara la respuesta como texto.'
+                'BazaarLink no devolvio JSON valido. Se utilizara la respuesta como texto.'
             );
         }
 
@@ -444,12 +443,12 @@ async function obtenerRespuestaIA(telefono, texto) {
 
     } catch (error) {
         console.error('================================');
-        console.error('ERROR REAL DE OLLAMA');
+        console.error('ERROR REAL DE BAZAARLINK');
         console.error('Código:', error.code || 'sin código');
         console.error('Mensaje:', error.message);
 
         if (error.response?.data) {
-            console.error('Respuesta Ollama:', JSON.stringify(error.response.data));
+            console.error('Respuesta BazaarLink:', JSON.stringify(error.response.data));
         }
 
         console.error('================================');
@@ -621,6 +620,7 @@ app.listen(PORT, () => {
     console.log('========================================');
     console.log('');
 });
+
 
 
 
