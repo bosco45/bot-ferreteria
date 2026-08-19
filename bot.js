@@ -1101,22 +1101,833 @@ Cuando BazaarLink agota la cuota gratuita:
 - Damos una respuesta corta al cliente.
 */
 
-async function manejarLimiteIA(telefono, texto) {
+/*
+============================================================
+MOTOR FALLBACK MULTICONVERSACION
+============================================================
 
-    const prospecto = obtenerProspecto(telefono);
+Este motor funciona cuando BazaarLink no esta disponible.
 
-    prospecto.necesitaAsesor = true;
-    prospecto.actualizado = new Date().toISOString();
+NO esta limitado a una clinica o un sector especifico.
+
+Puede:
+
+- detectar sectores
+- detectar tipos de necesidad
+- recordar que pregunta estaba esperando
+- guardar las respuestas
+- seleccionar diferentes preguntas
+- avanzar por el embudo
+- evitar inventar soluciones
+- escalar cuando el prospecto ya tiene contexto suficiente
+*/
 
 
-    await notificarAsesor(
-        telefono,
-        texto,
-        'Limite gratuito de IA alcanzado durante la conversacion'
+function detectarSectorFallback(texto) {
+
+    const limpio =
+        limpiarTextoParaReglas(texto);
+
+
+    const reglas = [
+
+        {
+            sector: 'salud',
+            patron: /\b(clinica|hospital|medico|medica|medicina|paciente|pacientes|cirugia|procedimiento|odontologia|salud|terapia|tratamiento)\b/
+        },
+
+        {
+            sector: 'arquitectura',
+            patron: /\b(arquitectura|arquitectonico|arquitectonica|edificio|casa|vivienda|fachada|interiorismo|urbanismo|plano|planos)\b/
+        },
+
+        {
+            sector: 'inmobiliario',
+            patron: /\b(inmobiliaria|inmobiliario|constructora|apartamento|apartamentos|proyecto inmobiliario|venta sobre planos)\b/
+        },
+
+        {
+            sector: 'industria',
+            patron: /\b(industria|industrial|maquina|maquinaria|manufactura|fabrica|planta|produccion|ensamble|proceso industrial)\b/
+        },
+
+        {
+            sector: 'educacion',
+            patron: /\b(educacion|educativo|colegio|universidad|estudiante|estudiantes|curso|capacitacion|ensenar|aprendizaje)\b/
+        },
+
+        {
+            sector: 'videojuegos',
+            patron: /\b(videojuego|videojuegos|gaming|juego|unreal|unity|uefn|game)\b/
+        },
+
+        {
+            sector: 'producto',
+            patron: /\b(producto|productos|catalogo|empaque|packaging|prototipo|mueble|mobiliario)\b/
+        },
+
+        {
+            sector: 'publicidad',
+            patron: /\b(publicidad|marketing|campana|marca|redes sociales|comercial|promocion)\b/
+        },
+
+        {
+            sector: 'tecnologia',
+            patron: /\b(tecnologia|software|aplicacion|app|plataforma|sistema|inteligencia artificial|automatizacion)\b/
+        }
+    ];
+
+
+    for (const regla of reglas) {
+
+        if (regla.patron.test(limpio)) {
+
+            return regla.sector;
+        }
+    }
+
+
+    return null;
+}
+
+
+/*
+============================================================
+DETECTAR TIPO DE NECESIDAD
+============================================================
+*/
+
+function detectarTipoNecesidadFallback(texto) {
+
+    const limpio =
+        limpiarTextoParaReglas(texto);
+
+
+    const reglas = [
+
+        {
+            tipo: 'explicacion',
+            patron: /\b(explicar|entender|comprender|mostrar como funciona|comunicar|ensenar)\b/
+        },
+
+        {
+            tipo: 'visualizacion',
+            patron: /\b(visualizar|ver como queda|ver como quedaria|render|renders|imagen 3d|modelo 3d|modelado 3d)\b/
+        },
+
+        {
+            tipo: 'presentacion',
+            patron: /\b(presentar|presentacion|inversionista|inversionistas|cliente|clientes|vender|venta|convencer)\b/
+        },
+
+        {
+            tipo: 'simulacion',
+            patron: /\b(simular|simulacion|proceso|funcionamiento|entrenamiento|operacion)\b/
+        },
+
+        {
+            tipo: 'inmersivo',
+            patron: /\b(realidad virtual|realidad aumentada|vr|ar|xr|inmersivo|inmersiva|recorrido virtual)\b/
+        },
+
+        {
+            tipo: 'inteligencia_artificial',
+            patron: /\b(inteligencia artificial|\bia\b|automatizar|automatizacion|chatbot|asistente virtual)\b/
+        }
+    ];
+
+
+    for (const regla of reglas) {
+
+        if (regla.patron.test(limpio)) {
+
+            return regla.tipo;
+        }
+    }
+
+
+    return null;
+}
+
+
+/*
+============================================================
+ELEGIR DIFERENTES FORMAS DE PREGUNTAR
+============================================================
+
+No usamos Math.random puro.
+
+Utilizamos un contador por prospecto para ir rotando
+las preguntas y evitar que todas las conversaciones
+sean identicas.
+*/
+
+function elegirVariacionFallback(
+    prospecto,
+    opciones
+) {
+
+    if (!Array.isArray(opciones) || opciones.length === 0) {
+
+        return '¿Puedes contarme un poco más?';
+    }
+
+
+    const indiceActual =
+        Number(
+            prospecto.contadorFallback || 0
+        );
+
+
+    const respuesta =
+        opciones[
+            indiceActual % opciones.length
+        ];
+
+
+    prospecto.contadorFallback =
+        indiceActual + 1;
+
+
+    return respuesta;
+}
+
+
+/*
+============================================================
+BIBLIOTECA GENERAL DE PREGUNTAS
+============================================================
+*/
+
+const PREGUNTAS_FALLBACK = {
+
+    genericas: {
+
+        sector: [
+            '¿En qué tipo de proyecto o sector lo necesitas?',
+            '¿En qué tipo de proyecto estás trabajando?',
+            '¿A qué sector pertenece el proyecto?'
+        ],
+
+        dolor: [
+            '¿Qué es lo más difícil de resolver actualmente?',
+            '¿Dónde está el principal problema hoy?',
+            '¿Qué es lo que más necesitas mejorar?'
+        ],
+
+        impacto: [
+            '¿Qué ocurre actualmente por ese problema?',
+            '¿Cómo les está afectando esa dificultad?',
+            '¿Qué pasa cuando no logran resolverlo?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué resultado te gustaría conseguir?',
+            '¿Qué debería mejorar con una solución?',
+            '¿Qué quieres lograr al resolverlo?'
+        ],
+
+        materiales: [
+            '¿Con qué información o material cuentas actualmente?',
+            '¿Qué material tienes disponible del proyecto?',
+            '¿Con qué información podemos partir?'
+        ],
+
+        alcance: [
+            '¿Qué necesitas incluir inicialmente?',
+            '¿Qué parte del proyecto necesitas desarrollar primero?',
+            '¿Cuál sería el alcance inicial?'
+        ],
+
+        plazo: [
+            '¿Para cuándo necesitas tenerlo listo?',
+            '¿Tienes una fecha objetivo?',
+            '¿Cuándo necesitarías tener una primera entrega?'
+        ],
+
+        presupuesto: [
+            '¿Tienes un rango de presupuesto definido?',
+            '¿Ya tienen un presupuesto aproximado?',
+            '¿Existe un rango de inversión previsto?'
+        ]
+    },
+
+
+    salud: {
+
+        dolor: [
+            '¿Qué parte les cuesta más entender a los pacientes?',
+            '¿Qué es lo más difícil de explicarles actualmente?',
+            '¿Dónde aparece la mayor dificultad al explicarlo?'
+        ],
+
+        impacto: [
+            '¿Qué ocurre cuando el paciente no logra entenderlo?',
+            '¿Qué pasa actualmente cuando esa explicación no es clara?',
+            '¿Cómo afecta el proceso cuando no logran comprenderlo?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué te gustaría que comprendieran antes del procedimiento?',
+            '¿Qué debería quedar claro para el paciente?',
+            '¿Qué quieres que el paciente entienda mejor?'
+        ],
+
+        materiales: [
+            '¿Con qué material del procedimiento cuentas actualmente?',
+            '¿Tienes imágenes, documentos o información del procedimiento?',
+            '¿Qué información médica tienes disponible para trabajar?'
+        ]
+    },
+
+
+    arquitectura: {
+
+        dolor: [
+            '¿Qué es lo más difícil de mostrar del proyecto?',
+            '¿Qué parte del proyecto cuesta más visualizar?',
+            '¿Qué no están logrando comunicar con los planos actuales?'
+        ],
+
+        impacto: [
+            '¿Qué ocurre cuando esa parte no se logra visualizar?',
+            '¿Qué dificultad genera no poder mostrarlo claramente?',
+            '¿Qué pasa actualmente cuando presentan el proyecto?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué quieres que las personas comprendan al verlo?',
+            '¿Qué debería quedar claro al presentar el proyecto?',
+            '¿Qué resultado quieres lograr con la visualización?'
+        ],
+
+        materiales: [
+            '¿Con qué planos o material del proyecto cuentas?',
+            '¿Qué información técnica tienes actualmente?',
+            '¿Ya cuentas con planos, referencias o modelos?'
+        ]
+    },
+
+
+    inmobiliario: {
+
+        dolor: [
+            '¿Qué es lo más difícil de mostrar a los compradores?',
+            '¿Qué parte del proyecto cuesta más comunicar?',
+            '¿Qué necesitan visualizar mejor los clientes?'
+        ],
+
+        impacto: [
+            '¿Qué ocurre cuando el cliente no logra visualizarlo?',
+            '¿Cómo afecta actualmente la presentación del proyecto?',
+            '¿Qué dificultad aparece durante la presentación comercial?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué quieres que el comprador comprenda al verlo?',
+            '¿Qué resultado buscas durante la presentación?',
+            '¿Qué debería poder visualizar claramente el cliente?'
+        ]
+    },
+
+
+    industria: {
+
+        dolor: [
+            '¿Qué parte del proceso necesitas explicar mejor?',
+            '¿Qué es lo más difícil de visualizar del funcionamiento?',
+            '¿Qué parte de la operación genera más dificultad al explicarla?'
+        ],
+
+        impacto: [
+            '¿Qué ocurre cuando esa parte no se comprende bien?',
+            '¿Qué problema genera actualmente esa dificultad?',
+            '¿Cómo afecta el proceso no poder mostrarlo claramente?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué debería comprender mejor la persona que lo vea?',
+            '¿Qué resultado buscas con una mejor visualización?',
+            '¿Qué quieres conseguir al mostrar el proceso con claridad?'
+        ]
+    },
+
+
+    educacion: {
+
+        dolor: [
+            '¿Qué concepto es el más difícil de explicar?',
+            '¿Qué parte les cuesta más entender a los estudiantes?',
+            '¿Dónde aparece la mayor dificultad de aprendizaje?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué quieres que los estudiantes comprendan mejor?',
+            '¿Qué resultado de aprendizaje estás buscando?',
+            '¿Qué debería quedar más claro para los estudiantes?'
+        ]
+    },
+
+
+    videojuegos: {
+
+        dolor: [
+            '¿Qué parte del proyecto necesitas resolver primero?',
+            '¿Dónde está la principal dificultad del proyecto?',
+            '¿Qué necesitas desarrollar o visualizar mejor?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué resultado quieres conseguir en la experiencia?',
+            '¿Cómo debería funcionar o sentirse el resultado final?',
+            '¿Qué quieres que experimente el usuario?'
+        ]
+    },
+
+
+    producto: {
+
+        dolor: [
+            '¿Qué es lo más difícil de mostrar del producto actualmente?',
+            '¿Qué parte del producto necesitas comunicar mejor?',
+            '¿Qué no logras mostrar con el material actual?'
+        ],
+
+        beneficioEsperado: [
+            '¿Qué quieres que el cliente perciba del producto?',
+            '¿Qué resultado buscas al presentarlo mejor?',
+            '¿Qué debería entender el cliente al verlo?'
+        ]
+    }
+};
+
+
+/*
+============================================================
+OBTENER PREGUNTA ADECUADA
+============================================================
+*/
+
+function obtenerPreguntaFallback(
+    campo,
+    prospecto
+) {
+
+    const sector =
+        prospecto.sector;
+
+
+    let opciones = null;
+
+
+    if (
+        sector &&
+        PREGUNTAS_FALLBACK[sector] &&
+        PREGUNTAS_FALLBACK[sector][campo]
+    ) {
+
+        opciones =
+            PREGUNTAS_FALLBACK[sector][campo];
+
+    } else {
+
+        opciones =
+            PREGUNTAS_FALLBACK.genericas[campo];
+    }
+
+
+    return elegirVariacionFallback(
+        prospecto,
+        opciones
+    );
+}
+
+
+/*
+============================================================
+GUARDAR RESPUESTA A LA PREGUNTA ANTERIOR
+============================================================
+*/
+
+function guardarRespuestaFallback(
+    prospecto,
+    texto
+) {
+
+    const campo =
+        prospecto.campoEsperadoFallback;
+
+
+    if (!campo) {
+
+        return;
+    }
+
+
+    const mensaje =
+        String(texto || '').trim();
+
+
+    if (!mensaje) {
+
+        return;
+    }
+
+
+    /*
+    El sector necesita una deteccion especial.
+    */
+
+    if (campo === 'sector') {
+
+        const sectorDetectado =
+            detectarSectorFallback(mensaje);
+
+
+        prospecto.sector =
+            sectorDetectado || mensaje.slice(0, 80);
+
+    } else {
+
+        /*
+        Guardar exactamente lo que dijo el cliente.
+
+        No interpretamos ni inventamos.
+        */
+
+        prospecto[campo] =
+            mensaje;
+    }
+
+
+    prospecto.campoEsperadoFallback =
+        null;
+
+
+    prospecto.actualizado =
+        new Date().toISOString();
+}
+
+
+/*
+============================================================
+BUSCAR EL SIGUIENTE DATO NECESARIO
+============================================================
+*/
+
+function siguienteCampoFallback(prospecto) {
+
+    const campos = [
+
+        'sector',
+        'dolor',
+        'impacto',
+        'beneficioEsperado',
+        'materiales',
+        'alcance',
+        'plazo',
+        'presupuesto'
+    ];
+
+
+    for (const campo of campos) {
+
+        const valor =
+            prospecto[campo];
+
+
+        if (
+            valor === null ||
+            valor === undefined ||
+            String(valor).trim() === ''
+        ) {
+
+            return campo;
+        }
+    }
+
+
+    return null;
+}
+
+
+/*
+============================================================
+ACTUALIZAR ETAPA INTERNA
+============================================================
+*/
+
+function actualizarEtapaFallback(
+    prospecto,
+    campo
+) {
+
+    if (
+        campo === 'sector' ||
+        campo === 'dolor'
+    ) {
+
+        prospecto.etapa =
+            'descubrimiento';
+
+        return;
+    }
+
+
+    if (
+        campo === 'impacto' ||
+        campo === 'beneficioEsperado'
+    ) {
+
+        prospecto.etapa =
+            'necesidad';
+
+        return;
+    }
+
+
+    if (
+        campo === 'materiales' ||
+        campo === 'alcance'
+    ) {
+
+        prospecto.etapa =
+            'alcance';
+
+        return;
+    }
+
+
+    if (
+        campo === 'plazo' ||
+        campo === 'presupuesto'
+    ) {
+
+        prospecto.etapa =
+            'calificacion';
+
+        return;
+    }
+}
+
+
+/*
+============================================================
+PROCESAR CONVERSACION LOCAL
+============================================================
+*/
+
+async function procesarConversacionFallback(
+    telefono,
+    texto
+) {
+
+    const prospecto =
+        obtenerProspecto(telefono);
+
+
+    const mensaje =
+        String(texto || '').trim();
+
+
+    /*
+    Si habia una pregunta pendiente,
+    este mensaje es la respuesta del cliente.
+    */
+
+    if (prospecto.campoEsperadoFallback) {
+
+        guardarRespuestaFallback(
+            prospecto,
+            mensaje
+        );
+
+    } else {
+
+        /*
+        Estamos entrando al fallback por primera vez.
+        Guardamos la necesidad general sin reinterpretarla.
+        */
+
+        if (!prospecto.necesidad) {
+
+            prospecto.necesidad =
+                mensaje;
+        }
+    }
+
+
+    /*
+    Intentar descubrir sector automaticamente.
+    */
+
+    if (!prospecto.sector) {
+
+        const sectorDetectado =
+            detectarSectorFallback(mensaje);
+
+
+        if (sectorDetectado) {
+
+            prospecto.sector =
+                sectorDetectado;
+        }
+    }
+
+
+    /*
+    Registrar tipo general de necesidad.
+
+    Este campo sirve para entender mejor el contexto
+    del modo local, pero no inventa una solucion.
+    */
+
+    if (!prospecto.tipoNecesidadFallback) {
+
+        const tipo =
+            detectarTipoNecesidadFallback(
+                mensaje
+            );
+
+
+        if (tipo) {
+
+            prospecto.tipoNecesidadFallback =
+                tipo;
+        }
+    }
+
+
+    prospecto.modoFallback =
+        true;
+
+
+    prospecto.actualizado =
+        new Date().toISOString();
+
+
+    /*
+    Buscar que informacion falta.
+    */
+
+    const siguiente =
+        siguienteCampoFallback(
+            prospecto
+        );
+
+
+    /*
+    Ya tenemos suficiente informacion.
+    */
+
+    if (!siguiente) {
+
+        prospecto.etapa =
+            'cierre';
+
+        prospecto.listoParaComercial =
+            true;
+
+        prospecto.campoEsperadoFallback =
+            null;
+
+
+        console.log(
+            `Prospecto ${telefono} calificado por fallback`
+        );
+
+
+        await notificarAsesor(
+            telefono,
+            mensaje,
+            'Prospecto calificado mediante sistema de respaldo'
+        );
+
+
+        return 'Ya tengo el contexto necesario. Dejo tu proyecto listo para revisión del equipo de Trinity 3D.';
+    }
+
+
+    /*
+    Registrar que dato estamos esperando.
+    */
+
+    prospecto.campoEsperadoFallback =
+        siguiente;
+
+
+    actualizarEtapaFallback(
+        prospecto,
+        siguiente
     );
 
 
-    return 'Voy a pasar tu solicitud al equipo de Trinity 3D para que puedan revisarla.';
+    const pregunta =
+        obtenerPreguntaFallback(
+            siguiente,
+            prospecto
+        );
+
+
+    console.log(
+        `Fallback ${telefono} | sector=${prospecto.sector || 'sin definir'} | tipo=${prospecto.tipoNecesidadFallback || 'sin definir'} | esperando=${siguiente}`
+    );
+
+
+    return pregunta;
+}
+
+
+async function manejarLimiteIA(telefono, texto) {
+
+    /*
+    BazaarLink alcanzo su limite gratuito.
+
+    Ya NO enviamos automaticamente al cliente
+    con un asesor.
+
+    Continuamos con el motor local.
+    */
+
+    console.log(
+        `BazaarLink sin cuota para ${telefono}. Activando fallback multiconversacion.`
+    );
+
+
+    try {
+
+        const respuesta =
+            await procesarConversacionFallback(
+                telefono,
+                texto
+            );
+
+
+        return respuesta;
+
+
+    } catch (error) {
+
+        console.error(
+            'Error en fallback multiconversacion:',
+            error.message
+        );
+
+
+        /*
+        Solo escalamos si tambien falla nuestro
+        sistema local.
+        */
+
+        await notificarAsesor(
+            telefono,
+            texto,
+            'Fallo del sistema automatico de respaldo'
+        );
+
+
+        return 'Voy a dejar tu solicitud para revisión del equipo de Trinity 3D.';
+    }
 }
 
 function normalizarRespuestaWhatsApp(texto, maxCaracteres = 160) {
@@ -1660,6 +2471,7 @@ app.listen(PORT, () => {
     console.log('========================================');
     console.log('');
 });
+
 
 
 
